@@ -3,7 +3,7 @@
 " Maintainer:	Mikolaj Machowski ( mikmach AT wp DOT pl )
 " Last Change:	2006 Apr 30
 
-function! javascriptcomplete#CompleteJS(findstart, base)
+function! js#CompleteJS(findstart, base)
   if a:findstart
 	" locate the start of the word
 	let line = getline('.')
@@ -153,7 +153,7 @@ function! javascriptcomplete#CompleteJS(findstart, base)
 		" Body - body.
 		let bodyprop = ['aLink', 'background', 'gbColor', 'id', 'link', 'scrollLeft', 'scrollTop',
 					\ 'text', 'vLink', 'firstChild', 'lastChild', 'getElementsByClassName', 'getElementById']
-    let bodymeth = ['querySelector', 'querySelector', 'tagName', 'nodeName', 'className']
+    let bodymeth = ['querySelector', 'querySelectorAll', 'tagName', 'nodeName', 'className']
     call map(bodymeth, 'v:val."("')
 		let bodys = bodyprop + bodymeth
 		" Document - document.
@@ -164,7 +164,7 @@ function! javascriptcomplete#CompleteJS(findstart, base)
 					\ 'getElementsByName', 'getElementsByTagName', 'open', 'write', 'writeln',
 					\ 'onClick', 'onDblClick', 'onFocus', 'onKeyDown', 'onKeyPress', 'onKeyUp',
 					\ 'onMouseDown', 'onMouseMove', 'onMouseOut', 'onMouseOver', 'onMouseUp', 'onResize',
-          \ 'getElementsByClassName']
+          \ 'getElementsByClassName', 'addEventListener', 'createTreeWalker', 'createEvent', 'getSelection']
 		call map(documeth, 'v:val."("')
 		let docuxprop = ['attributes', 'childNodes', 'doctype', 'documentElement', 'firstChild',
 					\ 'implementation', 'namespaceURI', 'nextSibling', 'nodeName', 'nodeType',
@@ -317,13 +317,13 @@ function! javascriptcomplete#CompleteJS(findstart, base)
 					\ 'minWidth', 'overflow', 'overflowX', 'overflowY', 'verticalAlign', 'visibility',
 					\ 'width',
 					\ 'listStyle', 'listStyleImage', 'listStylePosition', 'listStyleType',
-					\ 'cssText', 'bottom', 'height', 'left', 'position', 'right', 'top', 'width', 'zindex',
+					\ 'cssText', 'bottom', 'height', 'left', 'position', 'right', 'top', 'width', 'zIndex',
 					\ 'orphans', 'widows', 'page', 'pageBreakAfter', 'pageBreakBefore', 'pageBreakInside',
 					\ 'borderCollapse', 'borderSpacing', 'captionSide', 'emptyCells', 'tableLayout',
 					\ 'color', 'font', 'fontFamily', 'fontSize', 'fontSizeAdjust', 'fontStretch',
 					\ 'fontStyle', 'fontVariant', 'fontWeight', 'letterSpacing', 'lineHeight', 'quotes',
 					\ 'textAlign', 'textIndent', 'textShadow', 'textTransform', 'textUnderlinePosition',
-					\ 'unicodeBidi', 'whiteSpace', 'wordSpacing']
+					\ 'unicodeBidi', 'whiteSpace', 'wordSpacing', 'boxSizing', 'boxShadow', 'zoom']
 		let styls = stylprop
 		" Table - table.
 		let tablprop = ['rows', 'tBodies', 'align', 'bgColor', 'border', 'caption', 'cellPadding',
@@ -627,5 +627,3 @@ function! javascriptcomplete#CompleteJS(findstart, base)
 	return final_menu
 
 endfunction
-
-" vim:set foldmethod=marker:
