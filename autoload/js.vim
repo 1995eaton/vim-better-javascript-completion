@@ -49,8 +49,8 @@ function! js#CompleteJS(findstart, base)
 		" Arrays
 		let arrayprop = ['constructor', 'index', 'input', 'length', 'prototype']
 		let arraymeth = ['concat', 'join', 'pop', 'push', 'reverse', 'shift',
-					\ 'splice', 'sort', 'toSource', 'toString', 'unshift', 'valueOf',
-					\ 'watch', 'unwatch']
+					\ 'splice', 'slice', 'sort', 'toSource', 'toString', 'unshift', 'valueOf',
+					\ 'watch', 'unwatch', 'filter', 'map']
 		call map(arraymeth, 'v:val."("')
 		let arrays = arrayprop + arraymeth
 
@@ -164,7 +164,7 @@ function! js#CompleteJS(findstart, base)
 					\ 'getElementsByName', 'getElementsByTagName', 'open', 'write', 'writeln',
 					\ 'onClick', 'onDblClick', 'onFocus', 'onKeyDown', 'onKeyPress', 'onKeyUp',
 					\ 'onMouseDown', 'onMouseMove', 'onMouseOut', 'onMouseOver', 'onMouseUp', 'onResize',
-          \ 'getElementsByClassName', 'addEventListener', 'createTreeWalker', 'createEvent', 'getSelection']
+          \ 'getElementsByClassName', 'addEventListener', 'removeEventListner', 'createTreeWalker', 'createEvent', 'getSelection']
 		call map(documeth, 'v:val."("')
 		let docuxprop = ['attributes', 'childNodes', 'doctype', 'documentElement', 'firstChild',
 					\ 'implementation', 'namespaceURI', 'nextSibling', 'nodeName', 'nodeType',
@@ -285,7 +285,7 @@ function! js#CompleteJS(findstart, base)
 		" Object - object.
 		let objeprop = ['align', 'archive', 'border', 'code', 'codeBase', 'codeType', 'data',
 					\ 'declare', 'form', 'height', 'hspace', 'id', 'name', 'standby', 'tabIndex',
-					\ 'type', 'useMap', 'vspace', 'width', 'addEventListener']
+					\ 'type', 'useMap', 'vspace', 'width', 'addEventListener', 'removeEventListner']
 		let objes = objeprop
 		" Option - accessible only by other properties
 		let optiprop = ['defaultSelected', 
