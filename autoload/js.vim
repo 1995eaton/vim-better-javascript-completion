@@ -48,9 +48,7 @@ function! js#CompleteJS(findstart, base)
 		let doms = ['style.']
 		" Arrays
 		let arrayprop = ['constructor', 'index', 'input', 'length', 'prototype']
-		let arraymeth = ['concat', 'join', 'pop', 'push', 'reverse', 'shift',
-					\ 'splice', 'slice', 'sort', 'toSource', 'toString', 'unshift', 'valueOf',
-					\ 'watch', 'unwatch', 'filter', 'map']
+		let arraymeth = ['constructor', 'toString', 'toLocaleString', 'join', 'pop', 'push', 'concat', 'reverse', 'shift', 'unshift', 'slice', 'splice', 'sort', 'filter', 'forEach', 'some', 'every', 'map', 'indexOf', 'lastIndexOf', 'reduce', 'reduceRight']
 		call map(arraymeth, 'v:val."("')
 		let arrays = arrayprop + arraymeth
 
@@ -60,17 +58,7 @@ function! js#CompleteJS(findstart, base)
 
 		" Date
 		" properties - constructor, prototype
-		let datemeth = ['getDate', 'getDay', 'getFullYear', 'getHours', 'getMilliseconds',
-					\ 'getMinutes', 'getMonth', 'getSeconds', 'getTime', 'getTimezoneOffset',
-					\ 'getUTCDate', 'getUTCDay', 'getUTCFullYear', 'getUTCHours', 'getUTCMilliseconds',
-					\ 'getUTCMinutes', 'getUTCMonth', 'getUTCSeconds',
-					\ 'getYear', 'parse', 'parse',
-					\ 'setDate', 'setDay', 'setFullYear', 'setHours', 'setMilliseconds',
-					\ 'setMinutes', 'setMonth', 'setSeconds',
-					\ 'setUTCDate', 'setUTCDay', 'setUTCFullYear', 'setUTCHours', 'setUTCMilliseconds',
-					\ 'setUTCMinutes', 'setUTCMonth', 'setUTCSeconds', 'setYear', 'setTime',
-					\ 'toGMTString', 'toLocaleString', 'toLocaleDateString', 'toLocaleTimeString',
-					\ 'toSource', 'toString', 'toUTCString', 'UTC', 'valueOf', 'watch', 'unwatch']
+		let datemeth = ['constructor', 'toString', 'toDateString', 'toTimeString', 'toLocaleString', 'toLocaleDateString', 'toLocaleTimeString', 'valueOf', 'getTime', 'getFullYear', 'getUTCFullYear', 'getMonth', 'getUTCMonth', 'getDate', 'getUTCDate', 'getDay', 'getUTCDay', 'getHours', 'getUTCHours', 'getMinutes', 'getUTCMinutes', 'getSeconds', 'getUTCSeconds', 'getMilliseconds', 'getUTCMilliseconds', 'getTimezoneOffset', 'setTime', 'setMilliseconds', 'setUTCMilliseconds', 'setSeconds', 'setUTCSeconds', 'setMinutes', 'setUTCMinutes', 'setHours', 'setUTCHours', 'setDate', 'setUTCDate', 'setMonth', 'setUTCMonth', 'setFullYear', 'setUTCFullYear', 'toGMTString', 'toUTCString', 'getYear', 'setYear', 'toISOString', 'toJSON']
 		call map(datemeth, 'v:val."("')
 		let dates = datemeth
 
@@ -82,40 +70,32 @@ function! js#CompleteJS(findstart, base)
 		let funcs = funcprop + funcmeth
 
 		" Math
-		let mathprop = ['E', 'LN2', 'LN10', 'LOG2E', 'LOG10E', 'PI', 'SQRT1_2', 'SQRT']
-		let mathmeth = ['abs', 'acos', 'asin', 'atan', 'atan2', 'ceil', 'cos', 'exp', 'floor',
-					\ 'log', 'max', 'min', 'pow', 'random', 'round', 'sin', 'sqrt', 'tan',
-					\ 'watch', 'unwatch']
+		let mathprop = ['E', 'LN10', 'LN2', 'LOG2E', 'LOG10E', 'PI', 'SQRT1_2', 'SQRT2']
+		let mathmeth = ['random', 'abs', 'acos', 'asin', 'atan', 'ceil', 'cos', 'exp', 'floor', 'log', 'round', 'sin', 'sqrt', 'tan', 'atan2', 'pow', 'max', 'min', 'imul']
 		call map(mathmeth, 'v:val."("')
 		let maths = mathprop + mathmeth
 
 		" Number
-		let numbprop = ['MAX_VALUE', 'MIN_VALUE', 'NaN', 'NEGATIVE_INFINITY', 'POSITIVE_INFINITY', 
-					\ 'constructor', 'prototype']
-		let numbmeth = ['toExponential', 'toFixed', 'toPrecision', 'toSource', 'toString', 'valueOf',
-					\ 'watch', 'unwatch']
+		let numbprop = ['length', 'name', 'arguments', 'caller', 'prototype', 'MAX_VALUE', 'MIN_VALUE', 'NaN', 'NEGATIVE_INFINITY', 'POSITIVE_INFINITY', 'MAX_SAFE_INTEGER', 'MIN_SAFE_INTEGER', 'EPSILON']
+		let numbmeth = ['isFinite', 'isInteger', 'isNaN', 'isSafeInteger', 'parseInt', 'parseFloat', 'constructor', 'toString', 'toLocaleString', 'valueOf']
 		call map(numbmeth, 'v:val."("')
 		let numbs = numbprop + numbmeth
 
 		" Object
-		let objeprop = ['constructor', 'prototype']
-		let objemeth = ['eval', 'toSource', 'toString', 'unwatch', 'watch', 'valueOf']
+		let objeprop = ['length', 'name', 'arguments', 'caller', 'prototype']
+		let objemeth = ['keys', 'create', 'defineProperty', 'defineProperties', 'freeze', 'getPrototypeOf', 'setPrototypeOf', 'getOwnPropertyDescriptor', 'getOwnPropertyNames', 'is', 'isExtensible', 'isFrozen', 'isSealed', 'preventExtensions', 'seal', 'deliverChangeRecords', 'getNotifier', 'observe', 'unobserve', 'constructor', 'toString', 'toLocaleString', 'valueOf', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable']
 		call map(objemeth, 'v:val."("')
 		let objes = objeprop + objemeth
 
 		" RegExp
-		let regeprop = ['constructor', 'global', 'ignoreCase', 'lastIndex', 'multiline', 'source', 'prototype']
-		let regemeth = ['exec', 'test', 'toSource', 'toString', 'watch', 'unwatch']
+		let regeprop = ['length', 'name', 'arguments', 'caller', 'prototype', 'input', 'multiline', 'lastMatch', 'lastParen', 'leftContext', 'rightContext', 'source', 'global', 'ignoreCase', 'multiline', 'lastIndex']
+		let regemeth = ['constructor', 'exec', 'test', 'toString', 'compile']
 		call map(regemeth, 'v:val."("')
 		let reges = regeprop + regemeth
 
 		" String
-		let striprop = ['constructor', 'length', 'prototype']
-		let strimeth = ['anchor', 'big', 'blink', 'bold', 'charAt', 'charCodeAt', 'concat',
-					\ 'fixed', 'fontcolor', 'fontsize', 'fromCharCode', 'indexOf', 'italics',
-					\ 'lastIndexOf', 'link', 'match', 'replace', 'search', 'slice', 'small',
-					\ 'split', 'strike', 'sub', 'substr', 'substring', 'sup', 'toLowerCase',
-					\ 'toSource', 'toString', 'toUpperCase', 'watch', 'unwatch']
+		let striprop = ['length', 'name', 'prototype', 'length']
+		let strimeth = ['fromCharCode', 'constructor', 'valueOf', 'toString', 'charAt', 'charCodeAt', 'concat', 'indexOf', 'lastIndexOf', 'localeCompare', 'match', 'normalize', 'replace', 'search', 'slice', 'split', 'substring', 'substr', 'toLowerCase', 'toLocaleLowerCase', 'toUpperCase', 'toLocaleUpperCase', 'trim', 'trimLeft', 'trimRight', 'link', 'anchor', 'fontcolor', 'fontsize', 'big', 'blink', 'bold', 'fixed', 'italics', 'small', 'strike', 'sub', 'sup']
 		call map(strimeth, 'v:val."("')
 		let stris = striprop + strimeth
 
@@ -160,10 +140,8 @@ function! js#CompleteJS(findstart, base)
 		let docuprop = ['anchors', 'applets', 'childNodes', 'embeds', 'forms', 'images', 'links', 'styleSheets',
 					\ 'body', 'cookie', 'documentElement', 'domain', 'lastModified', 'referrer', 'title', 'URL',
           \ 'activeElement', 'designMode']
-		let documeth = ['close', 'createAttribute', 'createElement', 'createTextNode', 'focus', 'getElementById',
+		let documeth = ['close', 'createAttribute', 'createElement', 'createNodeIterator', 'createTextNode', 'focus', 'getElementById',
 					\ 'getElementsByName', 'getElementsByTagName', 'open', 'write', 'writeln',
-					\ 'onClick', 'onDblClick', 'onFocus', 'onKeyDown', 'onKeyPress', 'onKeyUp',
-					\ 'onMouseDown', 'onMouseMove', 'onMouseOut', 'onMouseOver', 'onMouseUp', 'onResize',
           \ 'getElementsByClassName', 'addEventListener', 'removeEventListner', 'createTreeWalker', 'createEvent', 'getSelection']
 		call map(documeth, 'v:val."("')
 		let docuxprop = ['attributes', 'childNodes', 'doctype', 'documentElement', 'firstChild',
@@ -213,50 +191,50 @@ function! js#CompleteJS(findstart, base)
 		call map(buttmeth, 'v:val."("')
 		let butts = buttprop + buttmeth
 		" Checkbox - accessible only by other properties
-		let checprop = ['accept', 'accessKey', 'align', 'alt', 'checked', 'defaultChecked', 
-					\ 'disabled', 'form', 'id', 'name', 'tabIndex', 'type', 'value'] 
+		let checprop = ['accept', 'accessKey', 'align', 'alt', 'checked', 'defaultChecked',
+					\ 'disabled', 'form', 'id', 'name', 'tabIndex', 'type', 'value']
 		let checmeth = ['blur', 'click', 'focus', 'onBlur', 'onClick', 'onFocus', 'onMouseDown', 'onMouseUp']
 		call map(checmeth, 'v:val."("')
 		let checs = checprop + checmeth
 		" File upload - accessible only by other properties
-		let fileprop = ['accept', 'accessKey', 'align', 'alt', 'defaultValue', 
-					\ 'disabled', 'form', 'id', 'name', 'tabIndex', 'type', 'value'] 
+		let fileprop = ['accept', 'accessKey', 'align', 'alt', 'defaultValue',
+					\ 'disabled', 'form', 'id', 'name', 'tabIndex', 'type', 'value']
 		let filemeth = ['blur', 'focus', 'onBlur', 'onClick', 'onFocus', 'onMouseDown', 'onMouseUp']
 		call map(filemeth, 'v:val."("')
 		let files = fileprop + filemeth
 		" Hidden - accessible only by other properties
-		let hiddprop = ['defaultValue', 'form', 'id', 'name', 'type', 'value'] 
+		let hiddprop = ['defaultValue', 'form', 'id', 'name', 'type', 'value']
 		let hidds = hiddprop
 		" Password - accessible only by other properties
-		let passprop = ['accept', 'accessKey', 'defaultValue', 
-					\ 'disabled', 'form', 'id', 'maxLength', 'name', 'readOnly', 'size', 'tabIndex', 
-					\ 'type', 'value'] 
-		let passmeth = ['blur', 'click', 'focus', 'select', 'onBlur', 'onFocus', 'onKeyDown', 
+		let passprop = ['accept', 'accessKey', 'defaultValue',
+					\ 'disabled', 'form', 'id', 'maxLength', 'name', 'readOnly', 'size', 'tabIndex',
+					\ 'type', 'value']
+		let passmeth = ['blur', 'click', 'focus', 'select', 'onBlur', 'onFocus', 'onKeyDown',
 					\ 'onKeyPress', 'onKeyUp']
 		call map(passmeth, 'v:val."("')
 		let passs = passprop + passmeth
 		" Radio - accessible only by other properties
-		let radiprop = ['accept', 'accessKey', 'align', 'alt', 'checked', 'defaultChecked', 
-					\ 'disabled', 'form', 'id', 'name', 'tabIndex', 'type', 'value'] 
+		let radiprop = ['accept', 'accessKey', 'align', 'alt', 'checked', 'defaultChecked',
+					\ 'disabled', 'form', 'id', 'name', 'tabIndex', 'type', 'value']
 		let radimeth = ['blur', 'click', 'focus', 'select', 'onBlur', 'onFocus']
 		call map(radimeth, 'v:val."("')
 		let radis = radiprop + radimeth
 		" Reset - accessible only by other properties
-		let reseprop = ['accept', 'accessKey', 'align', 'alt', 'defaultValue', 
-					\ 'disabled', 'form', 'id', 'name', 'size', 'tabIndex', 'type', 'value'] 
+		let reseprop = ['accept', 'accessKey', 'align', 'alt', 'defaultValue',
+					\ 'disabled', 'form', 'id', 'name', 'size', 'tabIndex', 'type', 'value']
 		let resemeth = ['blur', 'click', 'focus', 'select', 'onBlur', 'onFocus']
 		call map(resemeth, 'v:val."("')
 		let reses = reseprop + resemeth
 		" Submit - accessible only by other properties
-		let submprop = ['accept', 'accessKey', 'align', 'alt', 'defaultValue', 
-					\ 'disabled', 'form', 'id', 'name', 'size', 'tabIndex', 'type', 'value'] 
+		let submprop = ['accept', 'accessKey', 'align', 'alt', 'defaultValue',
+					\ 'disabled', 'form', 'id', 'name', 'size', 'tabIndex', 'type', 'value']
 		let submmeth = ['blur', 'click', 'focus', 'select', 'onClick', 'onSelectStart']
 		call map(submmeth, 'v:val."("')
 		let subms = submprop + submmeth
 		" Text - accessible only by other properties
-		let textprop = ['accept', 'accessKey', 'align', 'alt', 'defaultValue', 
-					\ 'disabled', 'form', 'id', 'maxLength', 'name', 'readOnly', 
-					\ 'size', 'tabIndex', 'type', 'value'] 
+		let textprop = ['accept', 'accessKey', 'align', 'alt', 'defaultValue',
+					\ 'disabled', 'form', 'id', 'maxLength', 'name', 'readOnly',
+					\ 'size', 'tabIndex', 'type', 'value']
 		let textmeth = ['blur', 'focus', 'select', 'onBlur', 'onChange', 'onFocus', 'onKeyDown',
 					\ 'onKeyPress', 'onKeyUp', 'onSelect']
 		call map(textmeth, 'v:val."("')
@@ -288,42 +266,20 @@ function! js#CompleteJS(findstart, base)
 					\ 'type', 'useMap', 'vspace', 'width', 'addEventListener', 'removeEventListner']
 		let objes = objeprop
 		" Option - accessible only by other properties
-		let optiprop = ['defaultSelected', 
+		let optiprop = ['defaultSelected',
 					\ 'disabled', 'form', 'id', 'index', 'label', 'selected', 'text', 'value']
 		let optis = optiprop
 		" Screen - screen.
 		let screprop = ['availHeight', 'availWidth', 'colorDepth', 'height', 'width']
 		let scres = screprop
 		" Select - accessible only by other properties
-		let seleprop = ['options', 'disabled', 'form', 'id', 'length', 'multiple', 'name', 
-					\ 'selectedIndex', 'size', 'tabIndex', 'type', 'value'] 
+		let seleprop = ['options', 'disabled', 'form', 'id', 'length', 'multiple', 'name',
+					\ 'selectedIndex', 'size', 'tabIndex', 'type', 'value']
 		let selemeth = ['blur', 'focus', 'remove', 'onBlur', 'onChange', 'onFocus']
 		call map(selemeth, 'v:val."("')
 		let seles = seleprop + selemeth
 		" Style - style.
-		let stylprop = ['background', 'backgroundAttachment', 'backgroundColor', 'backgroundImage',
-					\ 'backgroundPosition', 'backgroundRepeat',
-					\ 'border', 'borderBottom', 'borderLeft', 'borderRight', 'borderTop',
-					\ 'borderBottomColor', 'borderLeftColor', 'borderRightColor', 'borderTopColor',
-					\ 'borderBottomStyle', 'borderLeftStyle', 'borderRightStyle', 'borderTopStyle',
-					\ 'borderBottomWidth', 'borderLeftWidth', 'borderRightWidth', 'borderTopWidth',
-					\ 'borderColor', 'borderStyle', 'borderWidth', 'margin', 'marginBottom',
-					\ 'marginLeft', 'marginRight', 'marginTop', 'outline', 'outlineStyle', 'outlineWidth',
-					\ 'outlineColor', 'outlineStyle', 'outlineWidth', 'padding', 'paddingBottom',
-					\ 'paddingLeft', 'paddingRight', 'paddingTop',
-					\ 'clear', 'clip', 'clipBottom', 'clipLeft', 'clipRight', 'clipTop', 'content',
-					\ 'counterIncrement', 'counterReset', 'cssFloat', 'cursor', 'direction',
-					\ 'display', 'markerOffset', 'marks', 'maxHeight', 'maxWidth', 'minHeight',
-					\ 'minWidth', 'overflow', 'overflowX', 'overflowY', 'verticalAlign', 'visibility',
-					\ 'width',
-					\ 'listStyle', 'listStyleImage', 'listStylePosition', 'listStyleType',
-					\ 'cssText', 'bottom', 'height', 'left', 'position', 'right', 'top', 'width', 'zIndex',
-					\ 'orphans', 'widows', 'page', 'pageBreakAfter', 'pageBreakBefore', 'pageBreakInside',
-					\ 'borderCollapse', 'borderSpacing', 'captionSide', 'emptyCells', 'tableLayout',
-					\ 'color', 'font', 'fontFamily', 'fontSize', 'fontSizeAdjust', 'fontStretch',
-					\ 'fontStyle', 'fontVariant', 'fontWeight', 'letterSpacing', 'lineHeight', 'quotes',
-					\ 'textAlign', 'textIndent', 'textShadow', 'textTransform', 'textUnderlinePosition',
-					\ 'unicodeBidi', 'whiteSpace', 'wordSpacing', 'boxSizing', 'boxShadow', 'zoom']
+		let stylprop = ['parentRule', 'length', 'cssText', 'alignContent', 'alignItems', 'alignSelf', 'alignmentBaseline', 'backfaceVisibility', 'background', 'backgroundAttachment', 'backgroundBlendMode', 'backgroundClip', 'backgroundColor', 'backgroundImage', 'backgroundOrigin', 'backgroundPosition', 'backgroundPositionX', 'backgroundPositionY', 'backgroundRepeat', 'backgroundRepeatX', 'backgroundRepeatY', 'backgroundSize', 'baselineShift', 'border', 'borderBottom', 'borderBottomColor', 'borderBottomLeftRadius', 'borderBottomRightRadius', 'borderBottomStyle', 'borderBottomWidth', 'borderCollapse', 'borderColor', 'borderImage', 'borderImageOutset', 'borderImageRepeat', 'borderImageSlice', 'borderImageSource', 'borderImageWidth', 'borderLeft', 'borderLeftColor', 'borderLeftStyle', 'borderLeftWidth', 'borderRadius', 'borderRight', 'borderRightColor', 'borderRightStyle', 'borderRightWidth', 'borderSpacing', 'borderStyle', 'borderTop', 'borderTopColor', 'borderTopLeftRadius', 'borderTopRightRadius', 'borderTopStyle', 'borderTopWidth', 'borderWidth', 'bottom', 'boxShadow', 'boxSizing', 'bufferedRendering', 'captionSide', 'clear', 'clip', 'clipPath', 'clipRule', 'color', 'colorInterpolation', 'colorInterpolationFilters', 'colorRendering', 'content', 'counterIncrement', 'counterReset', 'cursor', 'direction', 'display', 'dominantBaseline', 'emptyCells', 'enableBackground', 'fill', 'fillOpacity', 'fillRule', 'filter', 'flex', 'flexBasis', 'flexDirection', 'flexFlow', 'flexGrow', 'flexShrink', 'flexWrap', 'float', 'floodColor', 'floodOpacity', 'font', 'fontFamily', 'fontKerning', 'fontSize', 'fontStretch', 'fontStyle', 'fontVariant', 'fontVariantLigatures', 'fontWeight', 'glyphOrientationHorizontal', 'glyphOrientationVertical', 'height', 'imageRendering', 'justifyContent', 'left', 'letterSpacing', 'lightingColor', 'lineHeight', 'listStyle', 'listStyleImage', 'listStylePosition', 'listStyleType', 'margin', 'marginBottom', 'marginLeft', 'marginRight', 'marginTop', 'marker', 'markerEnd', 'markerMid', 'markerStart', 'mask', 'maskType', 'maxHeight', 'maxWidth', 'maxZoom', 'minHeight', 'minWidth', 'minZoom', 'objectFit', 'objectPosition', 'opacity', 'order', 'orientation', 'orphans', 'outline', 'outlineColor', 'outlineOffset', 'outlineStyle', 'outlineWidth', 'overflow', 'overflowWrap', 'overflowX', 'overflowY', 'padding', 'paddingBottom', 'paddingLeft', 'paddingRight', 'paddingTop', 'page', 'pageBreakAfter', 'pageBreakBefore', 'pageBreakInside', 'paintOrder', 'perspective', 'perspectiveOrigin', 'pointerEvents', 'position', 'quotes', 'resize', 'right', 'shapeImageThreshold', 'shapeMargin', 'shapeOutside', 'shapeRendering', 'size', 'speak', 'src', 'stopColor', 'stopOpacity', 'stroke', 'strokeDasharray', 'strokeDashoffset', 'strokeLinecap', 'strokeLinejoin', 'strokeMiterlimit', 'strokeOpacity', 'strokeWidth', 'tabSize', 'tableLayout', 'textAlign', 'textAnchor', 'textDecoration', 'textIndent', 'textLineThroughColor', 'textLineThroughMode', 'textLineThroughStyle', 'textLineThroughWidth', 'textOverflow', 'textOverlineColor', 'textOverlineMode', 'textOverlineStyle', 'textOverlineWidth', 'textRendering', 'textShadow', 'textTransform', 'textUnderlineColor', 'textUnderlineMode', 'textUnderlineStyle', 'textUnderlineWidth', 'top', 'touchAction', 'transform', 'transformOrigin', 'transformStyle', 'transition', 'transitionDelay', 'transitionDuration', 'transitionProperty', 'transitionTimingFunction', 'unicodeBidi', 'unicodeRange', 'userZoom', 'vectorEffect', 'verticalAlign', 'visibility', 'webkitAnimation', 'webkitAnimationDelay', 'webkitAnimationDirection', 'webkitAnimationDuration', 'webkitAnimationFillMode', 'webkitAnimationIterationCount', 'webkitAnimationName', 'webkitAnimationPlayState', 'webkitAnimationTimingFunction', 'webkitAppRegion', 'webkitAppearance', 'webkitAspectRatio', 'webkitBackfaceVisibility', 'webkitBackgroundClip', 'webkitBackgroundComposite', 'webkitBackgroundOrigin', 'webkitBackgroundSize', 'webkitBorderAfter', 'webkitBorderAfterColor', 'webkitBorderAfterStyle', 'webkitBorderAfterWidth', 'webkitBorderBefore', 'webkitBorderBeforeColor', 'webkitBorderBeforeStyle', 'webkitBorderBeforeWidth', 'webkitBorderEnd', 'webkitBorderEndColor', 'webkitBorderEndStyle', 'webkitBorderEndWidth', 'webkitBorderFit', 'webkitBorderHorizontalSpacing', 'webkitBorderImage', 'webkitBorderRadius', 'webkitBorderStart', 'webkitBorderStartColor', 'webkitBorderStartStyle', 'webkitBorderStartWidth', 'webkitBorderVerticalSpacing', 'webkitBoxAlign', 'webkitBoxDecorationBreak', 'webkitBoxDirection', 'webkitBoxFlex', 'webkitBoxFlexGroup', 'webkitBoxLines', 'webkitBoxOrdinalGroup', 'webkitBoxOrient', 'webkitBoxPack', 'webkitBoxReflect', 'webkitBoxShadow', 'webkitClipPath', 'webkitColumnBreakAfter', 'webkitColumnBreakBefore', 'webkitColumnBreakInside', 'webkitColumnCount', 'webkitColumnGap', 'webkitColumnRule', 'webkitColumnRuleColor', 'webkitColumnRuleStyle', 'webkitColumnRuleWidth', 'webkitColumnSpan', 'webkitColumnWidth', 'webkitColumns', 'webkitFilter', 'webkitFontFeatureSettings', 'webkitFontSizeDelta', 'webkitFontSmoothing', 'webkitHighlight', 'webkitHyphenateCharacter', 'webkitLineBoxContain', 'webkitLineBreak', 'webkitLineClamp', 'webkitLocale', 'webkitLogicalHeight', 'webkitLogicalWidth', 'webkitMarginAfter', 'webkitMarginAfterCollapse', 'webkitMarginBefore', 'webkitMarginBeforeCollapse', 'webkitMarginBottomCollapse', 'webkitMarginCollapse', 'webkitMarginEnd', 'webkitMarginStart', 'webkitMarginTopCollapse', 'webkitMask', 'webkitMaskBoxImage', 'webkitMaskBoxImageOutset', 'webkitMaskBoxImageRepeat', 'webkitMaskBoxImageSlice', 'webkitMaskBoxImageSource', 'webkitMaskBoxImageWidth', 'webkitMaskClip', 'webkitMaskComposite', 'webkitMaskImage', 'webkitMaskOrigin', 'webkitMaskPosition', 'webkitMaskPositionX', 'webkitMaskPositionY', 'webkitMaskRepeat', 'webkitMaskRepeatX', 'webkitMaskRepeatY', 'webkitMaskSize', 'webkitMaxLogicalHeight', 'webkitMaxLogicalWidth', 'webkitMinLogicalHeight', 'webkitMinLogicalWidth', 'webkitPaddingAfter', 'webkitPaddingBefore', 'webkitPaddingEnd', 'webkitPaddingStart', 'webkitPerspective', 'webkitPerspectiveOrigin', 'webkitPerspectiveOriginX', 'webkitPerspectiveOriginY', 'webkitPrintColorAdjust', 'webkitRtlOrdering', 'webkitRubyPosition', 'webkitTapHighlightColor', 'webkitTextCombine', 'webkitTextDecorationsInEffect', 'webkitTextEmphasis', 'webkitTextEmphasisColor', 'webkitTextEmphasisPosition', 'webkitTextEmphasisStyle', 'webkitTextFillColor', 'webkitTextOrientation', 'webkitTextSecurity', 'webkitTextStroke', 'webkitTextStrokeColor', 'webkitTextStrokeWidth', 'webkitTransform', 'webkitTransformOrigin', 'webkitTransformOriginX', 'webkitTransformOriginY', 'webkitTransformOriginZ', 'webkitTransformStyle', 'webkitTransition', 'webkitTransitionDelay', 'webkitTransitionDuration', 'webkitTransitionProperty', 'webkitTransitionTimingFunction', 'webkitUserDrag', 'webkitUserModify', 'webkitUserSelect', 'webkitWritingMode', 'whiteSpace', 'widows', 'width', 'willChange', 'wordBreak', 'wordSpacing', 'wordWrap', 'writingMode', 'zIndex', 'zoom']
 		let styls = stylprop
 		" Table - table.
 		let tablprop = ['rows', 'tBodies', 'align', 'bgColor', 'border', 'caption', 'cellPadding',
@@ -343,9 +299,9 @@ function! js#CompleteJS(findstart, base)
 		call map(trowmeth, 'v:val."("')
 		let trows = trowprop + trowmeth
 		" Textarea - accessible only by other properties
-		let tareprop = ['accessKey', 'cols', 'defaultValue', 
-					\ 'disabled', 'form', 'id', 'name', 'readOnly', 'rows', 
-					\ 'tabIndex', 'type', 'value', 'selectionStart', 'selectionEnd'] 
+		let tareprop = ['accessKey', 'cols', 'defaultValue',
+					\ 'disabled', 'form', 'id', 'name', 'readOnly', 'rows',
+					\ 'tabIndex', 'type', 'value', 'selectionStart', 'selectionEnd']
 		let taremeth = ['blur', 'focus', 'select', 'onBlur', 'onChange', 'onFocus']
 		call map(taremeth, 'v:val."("')
 		let tares = tareprop + taremeth
@@ -353,9 +309,7 @@ function! js#CompleteJS(findstart, base)
 		let windprop = ['frames', 'closed', 'defaultStatus', 'encodeURI', 'event', 'history',
 					\ 'length', 'location', 'name', 'onload', 'opener', 'parent', 'screen', 'self',
 					\ 'status', 'top', 'XMLHttpRequest', 'ActiveXObject', 'innerWidth', 'innerHeight']
-		let windmeth = ['alert', 'blur', 'clearInterval', 'clearTimeout', 'close', 'confirm', 'focus',
-					\ 'moveBy', 'moveTo', 'open', 'print', 'prompt', 'scrollBy', 'scrollTo', 'setInterval',
-					\ 'setTimeout', 'find', 'requestAnimationFrame', 'clearAnimationFrame']
+		let windmeth = ['toString', 'toString', 'postMessage', 'close', 'blur', 'focus', 'getSelection', 'print', 'stop', 'open', 'alert', 'console', 'confirm', 'prompt', 'find', 'scrollBy', 'scrollTo', 'scroll', 'moveBy', 'moveTo', 'resizeBy', 'resizeTo', 'matchMedia', 'getComputedStyle', 'getMatchedCSSRules', 'webkitConvertPointFromPageToNode', 'webkitConvertPointFromNodeToPage', 'requestAnimationFrame', 'cancelAnimationFrame', 'webkitRequestAnimationFrame', 'webkitCancelAnimationFrame', 'webkitCancelRequestAnimationFrame', 'captureEvents', 'releaseEvents', 'btoa', 'atob', 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', 'showModalDialog', 'webkitRequestFileSystem', 'webkitResolveLocalFileSystemURL', 'openDatabase', 'constructor']
 		call map(windmeth, 'v:val."("')
 		let winds = windprop + windmeth
 		" XMLHttpRequest - access by new xxx()
@@ -370,7 +324,7 @@ function! js#CompleteJS(findstart, base)
 		" Attributes - element.attributes[x].
 		let xdomattrprop = ['name', 'specified', 'value']
 		" Element - anyelement.
-		let xdomelemprop = ['attributes', 'childNodes', 'firstChild', 'lastChild', 
+		let xdomelemprop = ['attributes', 'childNodes', 'firstChild', 'lastChild',
 					\ 'namespaceURI', 'nextSibling', 'nodeName', 'nodeType', 'nodeValue',
 					\ 'ownerDocument', 'parentNode', 'prefix', 'previousSibling', 'tagName']
 		let xdomelemmeth = ['appendChild', 'cloneNode', 'getAttribute', 'getAttributeNode',
@@ -381,14 +335,14 @@ function! js#CompleteJS(findstart, base)
 		call map(xdomelemmeth, 'v:val."("')
 		let xdomelems = xdomelemprop + xdomelemmeth
 		" Node - anynode.
-		let xdomnodeprop = ['attributes', 'childNodes', 'firstChild', 'lastChild', 
+		let xdomnodeprop = ['attributes', 'childNodes', 'firstChild', 'lastChild',
 					\ 'namespaceURI', 'nextSibling', 'nodeName', 'nodeType', 'nodeValue',
 					\ 'ownerDocument', 'parentNode', 'prefix', 'previousSibling']
 		let xdomnodemeth = ['appendChild', 'cloneNode',
 					\ 'hasChildNodes', 'insertBefore', 'removeChild', 'replaceChild']
 		call map(xdomnodemeth, 'v:val."("')
 		let xdomnodes = xdomnodeprop + xdomnodemeth
-		" NodeList 
+		" NodeList
 		let xdomnliss = ['length', 'item(']
 		" Error - parseError.
 		let xdomerror = ['errorCode', 'reason', 'line', 'linepos', 'srcText', 'url', 'filepos']
@@ -408,11 +362,16 @@ function! js#CompleteJS(findstart, base)
 				if object_type == 'ActiveXObject' && matchstr(getline(decl_line), object.'.\{-}=\s*new\s*ActiveXObject\s*(.Microsoft\.XMLHTTP.)') != ''
 						let object_type = 'XMLHttpRequest'
 				endif
-			else
-				let decl_line = search('var\s*'.object.'\s*=\s*\/', 'bn')
-				if decl_line > 0
+      else
+				if search('var\s*'.object.'\s*=\s*\/', 'bn') > 0
 					let object_type = 'RegExp'
-				endif
+        elseif search('var\s*'.object.'\s*=\s*\[', 'bn') > 0
+          let object_type = 'Array'
+        elseif search('var\s*'.object.'\s*=\s*{', 'bn') > 0
+          let object_type = 'Object'
+        elseif search('var\s*'.object.'\s*=\s*["'."'".']', 'bn') > 0
+          let object_type = 'String'
+        endif
 			endif
 			" We didn't find var declaration in current file but we may have
 			" something in external files.
@@ -594,7 +553,7 @@ function! js#CompleteJS(findstart, base)
 				\ 'parseInt', 'String', 'undefined', 'escape', 'unescape']
 
 	" Keywords
-	let keywords = ["Array", "Boolean", "Date", "Function", "Math", "Number", "Object", "RegExp", "String", "XMLHttpRequest", "ActiveXObject", "abstract", "boolean", "break", "byte", "case", "catch", "char", "class", "const", "continue", "debugger", "default", "delete", "do", "double ", "else", "enum", "export", "extends", "false", "final", "finally", "float", "for", "function", "goto", "if", "implements", "import", "in ", "instanceof", "int", "interface", "long", "native", "new", "null", "package", "private", "protected", "public", "return", "short", "static", "super ", "switch", "synchronized", "this", "throw", "throws", "transient", "true", "try", "typeof", "var", "void", "volatile", "while", "with"]
+	let keywords = ["Array", "Boolean", "Date", "Function", "Math", "Number", "Object", "RegExp", "String", "XMLHttpRequest", "ActiveXObject", "abstract", "boolean", "break", "byte", "case", "catch", "char", "class", "continue", "debugger", "default", "delete", "do", "double ", "else", "enum", "export", "extends", "false", "final", "finally", "float", "for", "function", "goto", "if", "implements", "import", "in ", "instanceof", "int", "interface", "long", "native", "new", "null", "package", "private", "protected", "public", "return", "short", "static", "super ", "switch", "synchronized", "this", "throw", "throws", "transient", "true", "try", "typeof", "var", "void", "volatile", "while", "with", "console"]
 
 	let values = variables + functions + htmldom + arguments + builtin + properties + keywords
 
