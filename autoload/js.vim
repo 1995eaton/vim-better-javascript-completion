@@ -41,65 +41,49 @@ function! js#CompleteJS(findstart, base)
 	endif
 
 
-	" Completion of properties, methods, etc. {{{
 	if shortcontext =~ '\.$'
-		" Complete methods and properties for objects
-		" DOM separate
+
 		let doms = ['style.']
-		" Arrays
+
 		let arrayprop = ['constructor', 'index', 'input', 'length', 'prototype']
 		let arraymeth = ['constructor', 'toString', 'toLocaleString', 'join', 'pop', 'push', 'concat', 'reverse', 'shift', 'unshift', 'slice', 'splice', 'sort', 'filter', 'forEach', 'some', 'every', 'map', 'indexOf', 'lastIndexOf', 'reduce', 'reduceRight']
 		call map(arraymeth, 'v:val."("')
 		let arrays = arrayprop + arraymeth
 
-		" Boolean - complete subset of array values
-		" properties - constructor, prototype
-		" methods    - toSource, toString, valueOf
-
-		" Date
-		" properties - constructor, prototype
 		let datemeth = ['constructor', 'toString', 'toDateString', 'toTimeString', 'toLocaleString', 'toLocaleDateString', 'toLocaleTimeString', 'valueOf', 'getTime', 'getFullYear', 'getUTCFullYear', 'getMonth', 'getUTCMonth', 'getDate', 'getUTCDate', 'getDay', 'getUTCDay', 'getHours', 'getUTCHours', 'getMinutes', 'getUTCMinutes', 'getSeconds', 'getUTCSeconds', 'getMilliseconds', 'getUTCMilliseconds', 'getTimezoneOffset', 'setTime', 'setMilliseconds', 'setUTCMilliseconds', 'setSeconds', 'setUTCSeconds', 'setMinutes', 'setUTCMinutes', 'setHours', 'setUTCHours', 'setDate', 'setUTCDate', 'setMonth', 'setUTCMonth', 'setFullYear', 'setUTCFullYear', 'toGMTString', 'toUTCString', 'getYear', 'setYear', 'toISOString', 'toJSON']
 		call map(datemeth, 'v:val."("')
 		let dates = datemeth
 
-		" Function
-		let funcprop = ['arguments', 'arguments.callee', 'arguments.caller', 'arguments.length',
-					\ 'arity', 'constructor', 'length', 'prototype']
-		let funcmeth = ['apply', 'call', 'toSource', 'toString', 'valueOf']
+		let funcprop = ['arguments', 'caller', 'length', 'name', 'prototype']
+		let funcmeth = ['apply', 'arguments', 'bind', 'call', 'caller', 'constructor', 'length', 'name', 'toString']
 		call map(funcmeth, 'v:val."("')
 		let funcs = funcprop + funcmeth
 
-		" Math
 		let mathprop = ['E', 'LN10', 'LN2', 'LOG2E', 'LOG10E', 'PI', 'SQRT1_2', 'SQRT2']
 		let mathmeth = ['random', 'abs', 'acos', 'asin', 'atan', 'ceil', 'cos', 'exp', 'floor', 'log', 'round', 'sin', 'sqrt', 'tan', 'atan2', 'pow', 'max', 'min', 'imul']
 		call map(mathmeth, 'v:val."("')
 		let maths = mathprop + mathmeth
 
-		" Number
 		let numbprop = ['length', 'name', 'arguments', 'caller', 'prototype', 'MAX_VALUE', 'MIN_VALUE', 'NaN', 'NEGATIVE_INFINITY', 'POSITIVE_INFINITY', 'MAX_SAFE_INTEGER', 'MIN_SAFE_INTEGER', 'EPSILON']
 		let numbmeth = ['isFinite', 'isInteger', 'isNaN', 'isSafeInteger', 'parseInt', 'parseFloat', 'constructor', 'toString', 'toLocaleString', 'valueOf']
 		call map(numbmeth, 'v:val."("')
 		let numbs = numbprop + numbmeth
 
-		" Object
-		let objeprop = ['length', 'name', 'arguments', 'caller', 'prototype']
-		let objemeth = ['keys', 'create', 'defineProperty', 'defineProperties', 'freeze', 'getPrototypeOf', 'setPrototypeOf', 'getOwnPropertyDescriptor', 'getOwnPropertyNames', 'is', 'isExtensible', 'isFrozen', 'isSealed', 'preventExtensions', 'seal', 'deliverChangeRecords', 'getNotifier', 'observe', 'unobserve', 'constructor', 'toString', 'toLocaleString', 'valueOf', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable']
+		let objeprop = ['arguments', 'caller', 'length', 'name', 'prototype']
+		let objemeth = ['create', 'defineProperties', 'defineProperty', 'deliverChangeRecords', 'freeze', 'getNotifier', 'getOwnPropertyDescriptor', 'getOwnPropertyNames', 'getPrototypeOf', 'is', 'isExtensible', 'isFrozen', 'isSealed', 'keys', 'observe', 'preventExtensions', 'seal', 'setPrototypeOf', 'unobserve']
 		call map(objemeth, 'v:val."("')
 		let objes = objeprop + objemeth
 
-		" RegExp
 		let regeprop = ['length', 'name', 'arguments', 'caller', 'prototype', 'input', 'multiline', 'lastMatch', 'lastParen', 'leftContext', 'rightContext', 'source', 'global', 'ignoreCase', 'multiline', 'lastIndex']
 		let regemeth = ['constructor', 'exec', 'test', 'toString', 'compile']
 		call map(regemeth, 'v:val."("')
 		let reges = regeprop + regemeth
 
-		" String
-		let striprop = ['length', 'name', 'prototype', 'length']
-		let strimeth = ['fromCharCode', 'constructor', 'valueOf', 'toString', 'charAt', 'charCodeAt', 'concat', 'indexOf', 'lastIndexOf', 'localeCompare', 'match', 'normalize', 'replace', 'search', 'slice', 'split', 'substring', 'substr', 'toLowerCase', 'toLocaleLowerCase', 'toUpperCase', 'toLocaleUpperCase', 'trim', 'trimLeft', 'trimRight', 'link', 'anchor', 'fontcolor', 'fontsize', 'big', 'blink', 'bold', 'fixed', 'italics', 'small', 'strike', 'sub', 'sup']
+		let striprop = ['length']
+		let strimeth = ['anchor', 'big', 'blink', 'bold', 'charAt', 'charCodeAt', 'concat', 'constructor', 'fixed', 'fontcolor', 'fontsize', 'indexOf', 'italics', 'lastIndexOf', 'link', 'localeCompare', 'match', 'normalize', 'replace', 'search', 'slice', 'small', 'split', 'strike', 'sub', 'substr', 'substring', 'sup', 'fromCharCode', 'toLocaleLowerCase', 'toLocaleUpperCase', 'toLowerCase', 'toString', 'toUpperCase', 'trim', 'trimLeft', 'trimRight', 'valueOf']
 		call map(strimeth, 'v:val."("')
 		let stris = striprop + strimeth
 
-		" User created properties
 		let user_props1 = filter(copy(file), 'v:val =~ "this\\.\\k"')
 		let juser_props1 = join(user_props1, ' ')
 		let user_props1 = split(juser_props1, '\zethis\.')
@@ -113,239 +97,71 @@ function! js#CompleteJS(findstart, base)
 		call map(user_props2, 'matchstr(v:val, "prototype\\.\\zs\\k\\+\\ze")')
 		let user_props = user_props1 + user_props2
 
-		" HTML DOM properties
-		" Anchors - anchor.
-		let anchprop = ['accessKey', 'charset', 'coords', 'href', 'hreflang', 'id', 'innerHTML',
-					\ 'name', 'rel', 'rev', 'shape', 'tabIndex', 'target', 'type', 'onBlur', 'onFocus',
-          \ 'innerText', 'spellcheck']
-		let anchmeth = ['blur', 'focus']
-		call map(anchmeth, 'v:val."("')
-		let anths = anchprop + anchmeth
-		" Area - area.
 		let areaprop = ['accessKey', 'alt', 'coords', 'hash', 'host', 'hostname', 'href', 'id',
 					\ 'noHref', 'pathname', 'port', 'protocol', 'search', 'shape', 'tabIndex', 'target']
-		let areameth = ['onClick', 'onDblClick', 'onMouseOut', 'onMouseOver']
+		let areameth = ['onclick', 'ondblClick', 'onmouseOut', 'onmouseOver']
 		call map(areameth, 'v:val."("')
 		let areas = areaprop + areameth
-		" Base - base.
+
 		let baseprop = ['href', 'id', 'className', 'target']
 		let bases = baseprop
-		" Body - body.
-		let bodyprop = ['aLink', 'background', 'gbColor', 'id', 'link', 'scrollLeft', 'scrollTop',
-					\ 'text', 'vLink', 'firstChild', 'lastChild', 'getElementsByClassName', 'getElementById']
-    let bodymeth = ['querySelector', 'querySelectorAll', 'tagName', 'nodeName', 'className']
+
+		let bodyprop = ['aLink', 'accessKey', 'attributes', 'background', 'baseURI', 'bgColor', 'childElementCount', 'childNodes', 'children', 'classList', 'className', 'clientHeight', 'clientLeft', 'clientTop', 'clientWidth', 'contentEditable', 'dataset', 'dir', 'draggable', 'firstChild', 'firstElementChild', 'hidden', 'id', 'innerHTML', 'innerText', 'isContentEditable', 'lang', 'lastChild', 'lastElementChild', 'link', 'localName', 'namespaceURI', 'nextElementSibling', 'nextSibling', 'nodeName', 'nodeType', 'nodeValue', 'offsetHeight', 'offsetLeft', 'offsetParent', 'offsetTop', 'offsetWidth', 'onabort', 'onautocomplete', 'onautocompleteerror', 'onbeforecopy', 'onbeforecut', 'onbeforepaste', 'onbeforeunload', 'onblur', 'oncancel', 'oncanplay', 'oncanplaythrough', 'onchange', 'onclick', 'onclose', 'oncontextmenu', 'oncopy', 'oncuechange', 'oncut', 'ondblclick', 'ondrag', 'ondragend', 'ondragenter', 'ondragleave', 'ondragover', 'ondragstart', 'ondrop', 'ondurationchange', 'onemptied', 'onended', 'onerror', 'onfocus', 'onhashchange', 'oninput', 'oninvalid', 'onkeydown', 'onkeypress', 'onkeyup', 'onlanguagechange', 'onload', 'onloadeddata', 'onloadedmetadata', 'onloadstart', 'onmessage', 'onmousedown', 'onmouseenter', 'onmouseleave', 'onmousemove', 'onmouseout', 'onmouseover', 'onmouseup', 'onmousewheel', 'onoffline', 'ononline', 'onpagehide', 'onpageshow', 'onpaste', 'onpause', 'onplay', 'onplaying', 'onpopstate', 'onprogress', 'onratechange', 'onreset', 'onresize', 'onscroll', 'onsearch', 'onseeked', 'onseeking', 'onselect', 'onselectstart', 'onshow', 'onstalled', 'onstorage', 'onsubmit', 'onsuspend', 'ontimeupdate', 'ontoggle', 'onunload', 'onvolumechange', 'onwaiting', 'onwebkitfullscreenchange', 'onwebkitfullscreenerror', 'onwheel', 'outerHTML', 'outerText', 'ownerDocument', 'parentElement', 'parentNode', 'prefix', 'previousElementSibling', 'previousSibling', 'scrollHeight', 'scrollLeft', 'scrollTop', 'scrollWidth', 'shadowRoot', 'spellcheck', 'style', 'tabIndex', 'tagName', 'text', 'textContent', 'title', 'translate', 'vLink', 'webkitdropzone']
+    let bodymeth = ['addEventListener', 'animate', 'appendChild', 'blur', 'click', 'cloneNode', 'compareDocumentPosition', 'contains', 'createShadowRoot', 'dispatchEvent', 'focus', 'getAttribute', 'getAttributeNS', 'getAttributeNode', 'getAttributeNodeNS', 'getBoundingClientRect', 'getClientRects', 'getDestinationInsertionPoints', 'getElementsByClassName', 'getElementsByTagName', 'getElementsByTagNameNS', 'hasAttribute', 'hasAttributeNS', 'hasAttributes', 'hasChildNodes', 'insertAdjacentElement', 'insertAdjacentHTML', 'insertAdjacentText', 'insertBefore', 'isDefaultNamespace', 'isEqualNode', 'isSameNode', 'lookupNamespaceURI', 'lookupPrefix', 'matches', 'normalize', 'querySelector', 'querySelectorAll', 'remove', 'removeAttribute', 'removeAttributeNS', 'removeAttributeNode', 'removeChild', 'removeEventListener', 'replaceChild', 'requestPointerLock', 'scrollByLines', 'scrollByPages', 'scrollIntoView', 'scrollIntoViewIfNeeded', 'setAttribute', 'setAttributeNS', 'setAttributeNode', 'setAttributeNodeNS', 'webkitMatchesSelector', 'webkitRequestFullScreen', 'webkitRequestFullscreen', 'webkitRequestPointerLock']
     call map(bodymeth, 'v:val."("')
 		let bodys = bodyprop + bodymeth
-		" Document - document.
-		let docuprop = ['anchors', 'applets', 'childNodes', 'embeds', 'forms', 'images', 'links', 'styleSheets',
-					\ 'body', 'cookie', 'documentElement', 'domain', 'lastModified', 'referrer', 'title', 'URL',
-          \ 'activeElement', 'designMode']
-		let documeth = ['close', 'createAttribute', 'createElement', 'createNodeIterator', 'createTextNode', 'focus', 'getElementById',
-					\ 'getElementsByName', 'getElementsByTagName', 'open', 'write', 'writeln',
-          \ 'getElementsByClassName', 'addEventListener', 'removeEventListner', 'createTreeWalker', 'createEvent', 'getSelection']
+
+		let docuprop = ['URL', 'activeElement', 'alinkColor', 'all', 'anchors', 'applets', 'baseURI', 'bgColor', 'body', 'characterSet', 'charset', 'childElementCount', 'childNodes', 'children', 'compatMode', 'contentType', 'cookie', 'currentScript', 'defaultCharset', 'defaultView', 'designMode', 'dir', 'doctype', 'documentElement', 'documentURI', 'domain', 'embeds', 'fgColor', 'firstChild', 'firstElementChild', 'fonts', 'forms', 'head', 'hidden', 'images', 'implementation', 'inputEncoding', 'lastChild', 'lastElementChild', 'lastModified', 'linkColor', 'links', 'localName', 'location', 'namespaceURI', 'nextSibling', 'nodeName', 'nodeType', 'nodeValue', 'onabort', 'onautocomplete', 'onautocompleteerror', 'onbeforecopy', 'onbeforecut', 'onbeforepaste', 'onblur', 'oncancel', 'oncanplay', 'oncanplaythrough', 'onchange', 'onclick', 'onclose', 'oncontextmenu', 'oncopy', 'oncuechange', 'oncut', 'ondblclick', 'ondrag', 'ondragend', 'ondragenter', 'ondragleave', 'ondragover', 'ondragstart', 'ondrop', 'ondurationchange', 'onemptied', 'onended', 'onerror', 'onfocus', 'oninput', 'oninvalid', 'onkeydown', 'onkeypress', 'onkeyup', 'onload', 'onloadeddata', 'onloadedmetadata', 'onloadstart', 'onmousedown', 'onmouseenter', 'onmouseleave', 'onmousemove', 'onmouseout', 'onmouseover', 'onmouseup', 'onmousewheel', 'onpaste', 'onpause', 'onplay', 'onplaying', 'onpointerlockchange', 'onpointerlockerror', 'onprogress', 'onratechange', 'onreadystatechange', 'onreset', 'onresize', 'onscroll', 'onsearch', 'onseeked', 'onseeking', 'onselect', 'onselectionchange', 'onselectstart', 'onshow', 'onstalled', 'onsubmit', 'onsuspend', 'ontimeupdate', 'ontoggle', 'onvolumechange', 'onwaiting', 'onwebkitfullscreenchange', 'onwebkitfullscreenerror', 'onwebkitpointerlockchange', 'onwebkitpointerlockerror', 'onwheel', 'ownerDocument', 'parentElement', 'parentNode', 'plugins', 'pointerLockElement', 'preferredStylesheetSet', 'previousSibling', 'readyState', 'referrer', 'rootElement', 'scripts', 'selectedStylesheetSet', 'styleSheets', 'textContent', 'title', 'visibilityState', 'vlinkColor', 'webkitCurrentFullScreenElement', 'webkitFullScreenKeyboardInputAllowed', 'webkitFullscreenElement', 'webkitFullscreenEnabled', 'webkitHidden', 'webkitIsFullScreen', 'webkitPointerLockElement', 'webkitVisibilityState', 'xmlEncoding', 'xmlStandalone', 'xmlVersion']
+		let documeth = ['addEventListener', 'adoptNode', 'appendChild', 'captureEvents', 'caretRangeFromPoint', 'clear', 'cloneNode', 'close', 'compareDocumentPosition', 'contains', 'createAttribute', 'createAttributeNS', 'createCDATASection', 'createComment', 'createDocumentFragment', 'createElement', 'createElementNS', 'createEvent', 'createExpression', 'createNSResolver', 'createNodeIterator', 'createProcessingInstruction', 'createRange', 'createTextNode', 'createTreeWalker', 'dispatchEvent', 'elementFromPoint', 'evaluate', 'execCommand', 'exitPointerLock', 'getCSSCanvasContext', 'getElementById', 'getElementsByClassName', 'getElementsByName', 'getElementsByTagName', 'getElementsByTagNameNS', 'getOverrideStyle', 'getSelection', 'hasChildNodes', 'hasFocus', 'importNode', 'insertBefore', 'isDefaultNamespace', 'isEqualNode', 'isSameNode', 'lookupNamespaceURI', 'lookupPrefix', 'normalize', 'open', 'queryCommandEnabled', 'queryCommandIndeterm', 'queryCommandState', 'queryCommandSupported', 'queryCommandValue', 'querySelector', 'querySelectorAll', 'registerElement', 'releaseEvents', 'removeChild', 'removeEventListener', 'replaceChild', 'webkitCancelFullScreen', 'webkitExitFullscreen', 'webkitExitPointerLock', 'write', 'writeln']
 		call map(documeth, 'v:val."("')
-		let docuxprop = ['attributes', 'childNodes', 'doctype', 'documentElement', 'firstChild',
-					\ 'implementation', 'namespaceURI', 'nextSibling', 'nodeName', 'nodeType',
-					\ 'nodeValue', 'ownerDocument', 'parentNode', 'previousSibling', 'children']
-		let docuxmeth = ['createAttribute', 'createCDATASection',
-					\ 'createComment', 'createDocument', 'createDocumentFragment',
-					\ 'createElement', 'createEntityReference', 'createProcessingInstruction',
-					\ 'createTextNode', 'querySelectorAll', 'querySelector']
-		call map(docuxmeth, 'v:val."("')
-		let docus = docuprop + docuxprop + documeth + docuxmeth
-		" Form - form.
-		let formprop = ['elements', 'acceptCharset', 'action', 'encoding', 'enctype', 'id', 'length',
-					\ 'method', 'name', 'tabIndex', 'target']
-		let formmeth = ['reset', 'submit', 'onReset', 'onSubmit']
-		call map(formmeth, 'v:val."("')
-		let forms = formprop + formmeth
-		" Frame - frame.
-		let framprop = ['contentDocument', 'frameBorder', 'id', 'longDesc', 'marginHeight', 'marginWidth',
-					\ 'name', 'noResize', 'scrolling', 'src']
-		let frammeth = ['blur', 'focus']
-		call map(frammeth, 'v:val."("')
-		let frams = framprop + frammeth
-		" Frameset - frameset.
-		let fsetprop = ['cols', 'id', 'rows']
-		let fsetmeth = ['blur', 'focus']
-		call map(fsetmeth, 'v:val."("')
-		let fsets = fsetprop + fsetmeth
-		" History - history.
-		let histprop = ['length']
-		let histmeth = ['back', 'forward', 'go']
+		let docus = docuprop + documeth
+
+		let histprop = ['length', 'state']
+		let histmeth = ['back', 'forward', 'go', 'pushState', 'replaceState']
 		call map(histmeth, 'v:val."("')
 		let hists = histprop + histmeth
-		" Iframe - iframe.
+
 		let ifraprop = ['align', 'frameBorder', 'height', 'id', 'longDesc', 'marginHeight', 'marginWidth',
 					\ 'name', 'scrolling', 'src', 'width']
 		let ifras = ifraprop
-		" Image - image.
-		let imagprop = ['align', 'alt', 'border', 'complete', 'height', 'hspace', 'id', 'isMap', 'longDesc',
-					\ 'lowSrc', 'name', 'src', 'useMap', 'vspace', 'width']
-		let imagmeth = ['onAbort', 'onError', 'onLoad']
+
+		let imagprop = ['accessKey', 'align', 'alt', 'attributes', 'baseURI', 'border', 'childElementCount', 'childNodes', 'children', 'classList', 'className', 'clientHeight', 'clientLeft', 'clientTop', 'clientWidth', 'complete', 'contentEditable', 'crossOrigin', 'dataset', 'dir', 'draggable', 'firstChild', 'firstElementChild', 'height', 'hidden', 'hspace', 'id', 'innerHTML', 'innerText', 'isContentEditable', 'isMap', 'lang', 'lastChild', 'lastElementChild', 'localName', 'longDesc', 'lowsrc', 'name', 'namespaceURI', 'naturalHeight', 'naturalWidth', 'nextElementSibling', 'nextSibling', 'nodeName', 'nodeType', 'nodeValue', 'offsetHeight', 'offsetLeft', 'offsetParent', 'offsetTop', 'offsetWidth', 'onabort', 'onautocomplete', 'onautocompleteerror', 'onbeforecopy', 'onbeforecut', 'onbeforepaste', 'onblur', 'oncancel', 'oncanplay', 'oncanplaythrough', 'onchange', 'onclick', 'onclose', 'oncontextmenu', 'oncopy', 'oncuechange', 'oncut', 'ondblclick', 'ondrag', 'ondragend', 'ondragenter', 'ondragleave', 'ondragover', 'ondragstart', 'ondrop', 'ondurationchange', 'onemptied', 'onended', 'onerror', 'onfocus', 'oninput', 'oninvalid', 'onkeydown', 'onkeypress', 'onkeyup', 'onload', 'onloadeddata', 'onloadedmetadata', 'onloadstart', 'onmousedown', 'onmouseenter', 'onmouseleave', 'onmousemove', 'onmouseout', 'onmouseover', 'onmouseup', 'onmousewheel', 'onpaste', 'onpause', 'onplay', 'onplaying', 'onprogress', 'onratechange', 'onreset', 'onresize', 'onscroll', 'onsearch', 'onseeked', 'onseeking', 'onselect', 'onselectstart', 'onshow', 'onstalled', 'onsubmit', 'onsuspend', 'ontimeupdate', 'ontoggle', 'onvolumechange', 'onwaiting', 'onwebkitfullscreenchange', 'onwebkitfullscreenerror', 'onwheel', 'outerHTML', 'outerText', 'ownerDocument', 'parentElement', 'parentNode', 'prefix', 'previousElementSibling', 'previousSibling', 'scrollHeight', 'scrollLeft', 'scrollTop', 'scrollWidth', 'shadowRoot', 'spellcheck', 'src', 'srcset', 'style', 'tabIndex', 'tagName', 'textContent', 'title', 'translate', 'useMap', 'vspace', 'webkitdropzone', 'width', 'x', 'y']
+		let imagmeth = ['addEventListener', 'animate', 'appendChild', 'blur', 'click', 'cloneNode', 'compareDocumentPosition', 'contains', 'createShadowRoot', 'dispatchEvent', 'focus', 'getAttribute', 'getAttributeNS', 'getAttributeNode', 'getAttributeNodeNS', 'getBoundingClientRect', 'getClientRects', 'getDestinationInsertionPoints', 'getElementsByClassName', 'getElementsByTagName', 'getElementsByTagNameNS', 'hasAttribute', 'hasAttributeNS', 'hasAttributes', 'hasChildNodes', 'insertAdjacentElement', 'insertAdjacentHTML', 'insertAdjacentText', 'insertBefore', 'isDefaultNamespace', 'isEqualNode', 'isSameNode', 'lookupNamespaceURI', 'lookupPrefix', 'matches', 'normalize', 'querySelector', 'querySelectorAll', 'remove', 'removeAttribute', 'removeAttributeNS', 'removeAttributeNode', 'removeChild', 'removeEventListener', 'replaceChild', 'requestPointerLock', 'scrollByLines', 'scrollByPages', 'scrollIntoView', 'scrollIntoViewIfNeeded', 'setAttribute', 'setAttributeNS', 'setAttributeNode', 'setAttributeNodeNS', 'webkitMatchesSelector', 'webkitRequestFullScreen', 'webkitRequestFullscreen', 'webkitRequestPointerLock']
 		call map(imagmeth, 'v:val."("')
-		let imags = histprop + imagmeth
-		" Button - accessible only by other properties
-		let buttprop = ['accessKey', 'disabled', 'form', 'id', 'name', 'tabIndex', 'type', 'value']
-		let buttmeth = ['blur', 'click', 'focus', 'onBlur', 'onClick', 'onFocus', 'onMouseDown', 'onMouseUp']
-		call map(buttmeth, 'v:val."("')
-		let butts = buttprop + buttmeth
-		" Checkbox - accessible only by other properties
-		let checprop = ['accept', 'accessKey', 'align', 'alt', 'checked', 'defaultChecked',
-					\ 'disabled', 'form', 'id', 'name', 'tabIndex', 'type', 'value']
-		let checmeth = ['blur', 'click', 'focus', 'onBlur', 'onClick', 'onFocus', 'onMouseDown', 'onMouseUp']
-		call map(checmeth, 'v:val."("')
-		let checs = checprop + checmeth
-		" File upload - accessible only by other properties
-		let fileprop = ['accept', 'accessKey', 'align', 'alt', 'defaultValue',
-					\ 'disabled', 'form', 'id', 'name', 'tabIndex', 'type', 'value']
-		let filemeth = ['blur', 'focus', 'onBlur', 'onClick', 'onFocus', 'onMouseDown', 'onMouseUp']
-		call map(filemeth, 'v:val."("')
-		let files = fileprop + filemeth
-		" Hidden - accessible only by other properties
-		let hiddprop = ['defaultValue', 'form', 'id', 'name', 'type', 'value']
-		let hidds = hiddprop
-		" Password - accessible only by other properties
-		let passprop = ['accept', 'accessKey', 'defaultValue',
-					\ 'disabled', 'form', 'id', 'maxLength', 'name', 'readOnly', 'size', 'tabIndex',
-					\ 'type', 'value']
-		let passmeth = ['blur', 'click', 'focus', 'select', 'onBlur', 'onFocus', 'onKeyDown',
-					\ 'onKeyPress', 'onKeyUp']
-		call map(passmeth, 'v:val."("')
-		let passs = passprop + passmeth
-		" Radio - accessible only by other properties
-		let radiprop = ['accept', 'accessKey', 'align', 'alt', 'checked', 'defaultChecked',
-					\ 'disabled', 'form', 'id', 'name', 'tabIndex', 'type', 'value']
-		let radimeth = ['blur', 'click', 'focus', 'select', 'onBlur', 'onFocus']
-		call map(radimeth, 'v:val."("')
-		let radis = radiprop + radimeth
-		" Reset - accessible only by other properties
-		let reseprop = ['accept', 'accessKey', 'align', 'alt', 'defaultValue',
-					\ 'disabled', 'form', 'id', 'name', 'size', 'tabIndex', 'type', 'value']
-		let resemeth = ['blur', 'click', 'focus', 'select', 'onBlur', 'onFocus']
-		call map(resemeth, 'v:val."("')
-		let reses = reseprop + resemeth
-		" Submit - accessible only by other properties
-		let submprop = ['accept', 'accessKey', 'align', 'alt', 'defaultValue',
-					\ 'disabled', 'form', 'id', 'name', 'size', 'tabIndex', 'type', 'value']
-		let submmeth = ['blur', 'click', 'focus', 'select', 'onClick', 'onSelectStart']
-		call map(submmeth, 'v:val."("')
-		let subms = submprop + submmeth
-		" Text - accessible only by other properties
-		let textprop = ['accept', 'accessKey', 'align', 'alt', 'defaultValue',
-					\ 'disabled', 'form', 'id', 'maxLength', 'name', 'readOnly',
-					\ 'size', 'tabIndex', 'type', 'value']
-		let textmeth = ['blur', 'focus', 'select', 'onBlur', 'onChange', 'onFocus', 'onKeyDown',
-					\ 'onKeyPress', 'onKeyUp', 'onSelect']
-		call map(textmeth, 'v:val."("')
-		let texts = textprop + textmeth
-		" Link - link.
+		let imags = imagprop + imagmeth
+
 		let linkprop = ['charset', 'disabled', 'href', 'hreflang', 'id', 'media',
 					\ 'rel', 'rev', 'target', 'type']
-		let linkmeth = ['onLoad']
+		let linkmeth = ['onload']
 		call map(linkmeth, 'v:val."("')
 		let links = linkprop + linkmeth
-		" Location - location.
+
 		let locaprop = ['href', 'hash', 'host', 'hostname', 'pathname', 'port', 'protocol',
 					\ 'search']
 		let locameth = ['assign', 'reload', 'replace']
 		call map(locameth, 'v:val."("')
 		let locas = locaprop + locameth
-		" Meta - meta.
-		let metaprop = ['charset', 'content', 'disabled', 'httpEquiv', 'name', 'scheme']
-		let metas = metaprop
-		" Navigator - navigator.
-		let naviprop = ['plugins', 'appCodeName', 'appName', 'appVersion', 'cookieEnabled',
-					\ 'platform', 'userAgent']
-		let navimeth = ['javaEnabled', 'taintEnabled']
+
+		let naviprop = ['appCodeName', 'appName', 'appVersion', 'cookieEnabled', 'doNotTrack', 'geolocation', 'hardwareConcurrency', 'language', 'languages', 'maxTouchPoints', 'mimeTypes', 'onLine', 'platform', 'plugins', 'product', 'productSub', 'userAgent', 'vendor', 'vendorSub']
+		let navimeth = ['getGamepads', 'getMediaDevices', 'getStorageUpdates', 'javaEnabled', 'registerProtocolHandler', 'vibrate']
 		call map(navimeth, 'v:val."("')
 		let navis = naviprop + navimeth
-		" Object - object.
-		let objeprop = ['align', 'archive', 'border', 'code', 'codeBase', 'codeType', 'data',
-					\ 'declare', 'form', 'height', 'hspace', 'id', 'name', 'standby', 'tabIndex',
-					\ 'type', 'useMap', 'vspace', 'width', 'addEventListener', 'removeEventListner']
-		let objes = objeprop
-		" Option - accessible only by other properties
-		let optiprop = ['defaultSelected',
-					\ 'disabled', 'form', 'id', 'index', 'label', 'selected', 'text', 'value']
-		let optis = optiprop
-		" Screen - screen.
-		let screprop = ['availHeight', 'availWidth', 'colorDepth', 'height', 'width']
+
+		let screprop = ['availHeight', 'availLeft', 'availTop', 'availWidth', 'colorDepth', 'height', 'pixelDepth', 'width']
 		let scres = screprop
-		" Select - accessible only by other properties
-		let seleprop = ['options', 'disabled', 'form', 'id', 'length', 'multiple', 'name',
-					\ 'selectedIndex', 'size', 'tabIndex', 'type', 'value']
-		let selemeth = ['blur', 'focus', 'remove', 'onBlur', 'onChange', 'onFocus']
-		call map(selemeth, 'v:val."("')
-		let seles = seleprop + selemeth
-		" Style - style.
+
 		let stylprop = ['parentRule', 'length', 'cssText', 'alignContent', 'alignItems', 'alignSelf', 'alignmentBaseline', 'backfaceVisibility', 'background', 'backgroundAttachment', 'backgroundBlendMode', 'backgroundClip', 'backgroundColor', 'backgroundImage', 'backgroundOrigin', 'backgroundPosition', 'backgroundPositionX', 'backgroundPositionY', 'backgroundRepeat', 'backgroundRepeatX', 'backgroundRepeatY', 'backgroundSize', 'baselineShift', 'border', 'borderBottom', 'borderBottomColor', 'borderBottomLeftRadius', 'borderBottomRightRadius', 'borderBottomStyle', 'borderBottomWidth', 'borderCollapse', 'borderColor', 'borderImage', 'borderImageOutset', 'borderImageRepeat', 'borderImageSlice', 'borderImageSource', 'borderImageWidth', 'borderLeft', 'borderLeftColor', 'borderLeftStyle', 'borderLeftWidth', 'borderRadius', 'borderRight', 'borderRightColor', 'borderRightStyle', 'borderRightWidth', 'borderSpacing', 'borderStyle', 'borderTop', 'borderTopColor', 'borderTopLeftRadius', 'borderTopRightRadius', 'borderTopStyle', 'borderTopWidth', 'borderWidth', 'bottom', 'boxShadow', 'boxSizing', 'bufferedRendering', 'captionSide', 'clear', 'clip', 'clipPath', 'clipRule', 'color', 'colorInterpolation', 'colorInterpolationFilters', 'colorRendering', 'content', 'counterIncrement', 'counterReset', 'cursor', 'direction', 'display', 'dominantBaseline', 'emptyCells', 'enableBackground', 'fill', 'fillOpacity', 'fillRule', 'filter', 'flex', 'flexBasis', 'flexDirection', 'flexFlow', 'flexGrow', 'flexShrink', 'flexWrap', 'float', 'floodColor', 'floodOpacity', 'font', 'fontFamily', 'fontKerning', 'fontSize', 'fontStretch', 'fontStyle', 'fontVariant', 'fontVariantLigatures', 'fontWeight', 'glyphOrientationHorizontal', 'glyphOrientationVertical', 'height', 'imageRendering', 'justifyContent', 'left', 'letterSpacing', 'lightingColor', 'lineHeight', 'listStyle', 'listStyleImage', 'listStylePosition', 'listStyleType', 'margin', 'marginBottom', 'marginLeft', 'marginRight', 'marginTop', 'marker', 'markerEnd', 'markerMid', 'markerStart', 'mask', 'maskType', 'maxHeight', 'maxWidth', 'maxZoom', 'minHeight', 'minWidth', 'minZoom', 'objectFit', 'objectPosition', 'opacity', 'order', 'orientation', 'orphans', 'outline', 'outlineColor', 'outlineOffset', 'outlineStyle', 'outlineWidth', 'overflow', 'overflowWrap', 'overflowX', 'overflowY', 'padding', 'paddingBottom', 'paddingLeft', 'paddingRight', 'paddingTop', 'page', 'pageBreakAfter', 'pageBreakBefore', 'pageBreakInside', 'paintOrder', 'perspective', 'perspectiveOrigin', 'pointerEvents', 'position', 'quotes', 'resize', 'right', 'shapeImageThreshold', 'shapeMargin', 'shapeOutside', 'shapeRendering', 'size', 'speak', 'src', 'stopColor', 'stopOpacity', 'stroke', 'strokeDasharray', 'strokeDashoffset', 'strokeLinecap', 'strokeLinejoin', 'strokeMiterlimit', 'strokeOpacity', 'strokeWidth', 'tabSize', 'tableLayout', 'textAlign', 'textAnchor', 'textDecoration', 'textIndent', 'textLineThroughColor', 'textLineThroughMode', 'textLineThroughStyle', 'textLineThroughWidth', 'textOverflow', 'textOverlineColor', 'textOverlineMode', 'textOverlineStyle', 'textOverlineWidth', 'textRendering', 'textShadow', 'textTransform', 'textUnderlineColor', 'textUnderlineMode', 'textUnderlineStyle', 'textUnderlineWidth', 'top', 'touchAction', 'transform', 'transformOrigin', 'transformStyle', 'transition', 'transitionDelay', 'transitionDuration', 'transitionProperty', 'transitionTimingFunction', 'unicodeBidi', 'unicodeRange', 'userZoom', 'vectorEffect', 'verticalAlign', 'visibility', 'webkitAnimation', 'webkitAnimationDelay', 'webkitAnimationDirection', 'webkitAnimationDuration', 'webkitAnimationFillMode', 'webkitAnimationIterationCount', 'webkitAnimationName', 'webkitAnimationPlayState', 'webkitAnimationTimingFunction', 'webkitAppRegion', 'webkitAppearance', 'webkitAspectRatio', 'webkitBackfaceVisibility', 'webkitBackgroundClip', 'webkitBackgroundComposite', 'webkitBackgroundOrigin', 'webkitBackgroundSize', 'webkitBorderAfter', 'webkitBorderAfterColor', 'webkitBorderAfterStyle', 'webkitBorderAfterWidth', 'webkitBorderBefore', 'webkitBorderBeforeColor', 'webkitBorderBeforeStyle', 'webkitBorderBeforeWidth', 'webkitBorderEnd', 'webkitBorderEndColor', 'webkitBorderEndStyle', 'webkitBorderEndWidth', 'webkitBorderFit', 'webkitBorderHorizontalSpacing', 'webkitBorderImage', 'webkitBorderRadius', 'webkitBorderStart', 'webkitBorderStartColor', 'webkitBorderStartStyle', 'webkitBorderStartWidth', 'webkitBorderVerticalSpacing', 'webkitBoxAlign', 'webkitBoxDecorationBreak', 'webkitBoxDirection', 'webkitBoxFlex', 'webkitBoxFlexGroup', 'webkitBoxLines', 'webkitBoxOrdinalGroup', 'webkitBoxOrient', 'webkitBoxPack', 'webkitBoxReflect', 'webkitBoxShadow', 'webkitClipPath', 'webkitColumnBreakAfter', 'webkitColumnBreakBefore', 'webkitColumnBreakInside', 'webkitColumnCount', 'webkitColumnGap', 'webkitColumnRule', 'webkitColumnRuleColor', 'webkitColumnRuleStyle', 'webkitColumnRuleWidth', 'webkitColumnSpan', 'webkitColumnWidth', 'webkitColumns', 'webkitFilter', 'webkitFontFeatureSettings', 'webkitFontSizeDelta', 'webkitFontSmoothing', 'webkitHighlight', 'webkitHyphenateCharacter', 'webkitLineBoxContain', 'webkitLineBreak', 'webkitLineClamp', 'webkitLocale', 'webkitLogicalHeight', 'webkitLogicalWidth', 'webkitMarginAfter', 'webkitMarginAfterCollapse', 'webkitMarginBefore', 'webkitMarginBeforeCollapse', 'webkitMarginBottomCollapse', 'webkitMarginCollapse', 'webkitMarginEnd', 'webkitMarginStart', 'webkitMarginTopCollapse', 'webkitMask', 'webkitMaskBoxImage', 'webkitMaskBoxImageOutset', 'webkitMaskBoxImageRepeat', 'webkitMaskBoxImageSlice', 'webkitMaskBoxImageSource', 'webkitMaskBoxImageWidth', 'webkitMaskClip', 'webkitMaskComposite', 'webkitMaskImage', 'webkitMaskOrigin', 'webkitMaskPosition', 'webkitMaskPositionX', 'webkitMaskPositionY', 'webkitMaskRepeat', 'webkitMaskRepeatX', 'webkitMaskRepeatY', 'webkitMaskSize', 'webkitMaxLogicalHeight', 'webkitMaxLogicalWidth', 'webkitMinLogicalHeight', 'webkitMinLogicalWidth', 'webkitPaddingAfter', 'webkitPaddingBefore', 'webkitPaddingEnd', 'webkitPaddingStart', 'webkitPerspective', 'webkitPerspectiveOrigin', 'webkitPerspectiveOriginX', 'webkitPerspectiveOriginY', 'webkitPrintColorAdjust', 'webkitRtlOrdering', 'webkitRubyPosition', 'webkitTapHighlightColor', 'webkitTextCombine', 'webkitTextDecorationsInEffect', 'webkitTextEmphasis', 'webkitTextEmphasisColor', 'webkitTextEmphasisPosition', 'webkitTextEmphasisStyle', 'webkitTextFillColor', 'webkitTextOrientation', 'webkitTextSecurity', 'webkitTextStroke', 'webkitTextStrokeColor', 'webkitTextStrokeWidth', 'webkitTransform', 'webkitTransformOrigin', 'webkitTransformOriginX', 'webkitTransformOriginY', 'webkitTransformOriginZ', 'webkitTransformStyle', 'webkitTransition', 'webkitTransitionDelay', 'webkitTransitionDuration', 'webkitTransitionProperty', 'webkitTransitionTimingFunction', 'webkitUserDrag', 'webkitUserModify', 'webkitUserSelect', 'webkitWritingMode', 'whiteSpace', 'widows', 'width', 'willChange', 'wordBreak', 'wordSpacing', 'wordWrap', 'writingMode', 'zIndex', 'zoom']
 		let styls = stylprop
-		" Table - table.
-		let tablprop = ['rows', 'tBodies', 'align', 'bgColor', 'border', 'caption', 'cellPadding',
-					\ 'cellSpacing', 'frame', 'height', 'rules', 'summary', 'tFoot', 'tHead', 'width']
-		let tablmeth = ['createCaption', 'createTFoot', 'createTHead', 'deleteCaption', 'deleteRow',
-					\ 'deleteTFoot', 'deleteTHead', 'insertRow']
-		call map(tablmeth, 'v:val."("')
-		let tabls = tablprop + tablmeth
-		" Table data - TableData.
-		let tdatprop = ['abbr', 'align', 'axis', 'bgColor', 'cellIndex', 'ch', 'chOff',
-					\ 'colSpan', 'headers', 'noWrap', 'rowSpan', 'scope', 'vAlign', 'width']
-		let tdats = tdatprop
-		" Table row - TableRow.
-		let trowprop = ['cells', 'align', 'bgColor', 'ch', 'chOff', 'rowIndex', 'sectionRowIndex',
-					\ 'vAlign']
-		let trowmeth = ['deleteCell', 'insertCell']
-		call map(trowmeth, 'v:val."("')
-		let trows = trowprop + trowmeth
-		" Textarea - accessible only by other properties
-		let tareprop = ['accessKey', 'cols', 'defaultValue',
-					\ 'disabled', 'form', 'id', 'name', 'readOnly', 'rows',
-					\ 'tabIndex', 'type', 'value', 'selectionStart', 'selectionEnd']
-		let taremeth = ['blur', 'focus', 'select', 'onBlur', 'onChange', 'onFocus']
-		call map(taremeth, 'v:val."("')
-		let tares = tareprop + taremeth
-		" Window - window.
-		let windprop = ['frames', 'closed', 'defaultStatus', 'encodeURI', 'event', 'history',
-					\ 'length', 'location', 'name', 'onload', 'opener', 'parent', 'screen', 'self',
-					\ 'status', 'top', 'XMLHttpRequest', 'ActiveXObject', 'innerWidth', 'innerHeight']
-		let windmeth = ['toString', 'toString', 'postMessage', 'close', 'blur', 'focus', 'getSelection', 'print', 'stop', 'open', 'alert', 'console', 'confirm', 'prompt', 'find', 'scrollBy', 'scrollTo', 'scroll', 'moveBy', 'moveTo', 'resizeBy', 'resizeTo', 'matchMedia', 'getComputedStyle', 'getMatchedCSSRules', 'webkitConvertPointFromPageToNode', 'webkitConvertPointFromNodeToPage', 'requestAnimationFrame', 'cancelAnimationFrame', 'webkitRequestAnimationFrame', 'webkitCancelAnimationFrame', 'webkitCancelRequestAnimationFrame', 'captureEvents', 'releaseEvents', 'btoa', 'atob', 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', 'showModalDialog', 'webkitRequestFileSystem', 'webkitResolveLocalFileSystemURL', 'openDatabase', 'constructor']
+
+		let windprop =  ['applicationCache', 'clientInformation', 'closed', 'console', 'crypto', 'decodeURI', 'decodeURIComponent', 'defaultStatus', 'defaultstatus', 'devicePixelRatio', 'document', 'encodeURI', 'encodeURIComponent', 'escape', 'eval', 'event', 'external', 'frameElement', 'frames', 'history', 'indexedDB', 'innerHeight', 'innerWidth', 'isFinite', 'isNaN', 'length', 'localStorage', 'location', 'locationbar', 'menubar', 'name', 'navigator', 'offscreenBuffering', 'opener', 'outerHeight', 'outerWidth', 'pageXOffset', 'pageYOffset', 'parent', 'parseFloat', 'parseInt', 'performance', 'personalbar', 'screen', 'screenLeft', 'screenTop', 'screenX', 'screenY', 'scrollX', 'scrollY', 'scrollbars', 'self', 'sessionStorage', 'speechSynthesis', 'status', 'statusbar', 'styleMedia', 'toolbar', 'top', 'undefined', 'unescape', 'window']
+		let windmeth = ['addEventListener', 'alert', 'atob', 'blur', 'btoa', 'cancelAnimationFrame', 'captureEvents', 'clearInterval', 'clearTimeout', 'close', 'confirm', 'dispatchEvent', 'find', 'focus', 'getComputedStyle', 'getMatchedCSSRules', 'getSelection', 'matchMedia', 'moveBy', 'moveTo', 'open', 'openDatabase', 'postMessage', 'print', 'prompt', 'releaseEvents', 'removeEventListener', 'requestAnimationFrame', 'resizeBy', 'resizeTo', 'scroll', 'scrollBy', 'scrollTo', 'setInterval', 'setTimeout', 'showModalDialog', 'stop']
 		call map(windmeth, 'v:val."("')
 		let winds = windprop + windmeth
-		" XMLHttpRequest - access by new xxx()
-		let xmlhprop = ['onreadystatechange', 'readyState', 'responseText', 'responseXML',
-					\ 'status', 'statusText', 'parseError']
-		let xmlhmeth = ['abort', 'getAllResponseHeaders', 'getResponseHeaders', 'open',
-					\ 'send', 'setRequestHeader']
+
+		let xmlhprop = ['onabort', 'onerror', 'onload', 'onloadend', 'onloadstart', 'onprogress', 'onreadystatechange', 'ontimeout', 'readyState', 'response', 'responseText', 'responseType', 'responseURL', 'responseXML', 'status', 'statusText', 'timeout', 'upload', 'withCredentials']
+		let xmlhmeth = ['abort', 'addEventListener', 'dispatchEvent', 'getAllResponseHeaders', 'getResponseHeader', 'open', 'overrideMimeType', 'removeEventListener', 'send', 'setRequestHeader']
 		call map(xmlhmeth, 'v:val."("')
 		let xmlhs = xmlhprop + xmlhmeth
-
-		" XML DOM
-		" Attributes - element.attributes[x].
-		let xdomattrprop = ['name', 'specified', 'value']
-		" Element - anyelement.
-		let xdomelemprop = ['attributes', 'childNodes', 'firstChild', 'lastChild',
-					\ 'namespaceURI', 'nextSibling', 'nodeName', 'nodeType', 'nodeValue',
-					\ 'ownerDocument', 'parentNode', 'prefix', 'previousSibling', 'tagName']
-		let xdomelemmeth = ['appendChild', 'cloneNode', 'getAttribute', 'getAttributeNode',
-					\ 'getElementsByTagName', 'hasChildNodes', 'insertBefore', 'normalize',
-					\ 'removeAttribute', 'removeAttributeNode', 'removeChild', 'replaceChild',
-					\ 'setAttribute', 'setAttributeNode', 'getElementsByClassName', 'querySelectorAll',
-          \ 'querySelector']
-		call map(xdomelemmeth, 'v:val."("')
-		let xdomelems = xdomelemprop + xdomelemmeth
-		" Node - anynode.
-		let xdomnodeprop = ['attributes', 'childNodes', 'firstChild', 'lastChild',
-					\ 'namespaceURI', 'nextSibling', 'nodeName', 'nodeType', 'nodeValue',
-					\ 'ownerDocument', 'parentNode', 'prefix', 'previousSibling']
-		let xdomnodemeth = ['appendChild', 'cloneNode',
-					\ 'hasChildNodes', 'insertBefore', 'removeChild', 'replaceChild']
-		call map(xdomnodemeth, 'v:val."("')
-		let xdomnodes = xdomnodeprop + xdomnodemeth
-		" NodeList
-		let xdomnliss = ['length', 'item(']
-		" Error - parseError.
-		let xdomerror = ['errorCode', 'reason', 'line', 'linepos', 'srcText', 'url', 'filepos']
 
 		" Find object type declaration to reduce number of suggestions. {{{
 		" 1. Get object name
@@ -365,10 +181,10 @@ function! js#CompleteJS(findstart, base)
       else
 				if search('var\s*'.object.'\s*=\s*\/', 'bn') > 0
 					let object_type = 'RegExp'
-        elseif search('var\s*'.object.'\s*=\s*\[', 'bn') > 0
-          let object_type = 'Array'
         elseif search('var\s*'.object.'\s*=\s*{', 'bn') > 0
           let object_type = 'Object'
+        elseif search('var\s*'.object.'\s*=\s*\[', 'bn') > 0
+          let object_type = 'Array'
         elseif search('var\s*'.object.'\s*=\s*["'."'".']', 'bn') > 0
           let object_type = 'String'
         endif
@@ -402,8 +218,9 @@ function! js#CompleteJS(findstart, base)
 			let values = imags
 		elseif object_type == 'Array'
 			let values = arrays
+    elseif object_type == 'Object'
+      let values = objes
 		elseif object_type == 'Boolean'
-			" TODO: a bit more than real boolean
 			let values = arrays
 		elseif object_type == 'XMLHttpRequest'
 			let values = xmlhs
@@ -419,8 +236,6 @@ function! js#CompleteJS(findstart, base)
 		" List of properties
 		if shortcontext =~ 'Math\.$'
 			let values = maths
-		elseif shortcontext =~ 'anchors\(\[.\{-}\]\)\?\.$'
-			let values = anths
 		elseif shortcontext =~ 'area\.$'
 			let values = areas
 		elseif shortcontext =~ 'base\.$'
@@ -429,10 +244,6 @@ function! js#CompleteJS(findstart, base)
 			let values = bodys
 		elseif shortcontext =~ 'document\.$'
 			let values = docus
-		elseif shortcontext =~ 'forms\(\[.\{-}\]\)\?\.$'
-			let values = forms
-		elseif shortcontext =~ 'frameset\.$'
-			let values = fsets
 		elseif shortcontext =~ 'history\.$'
 			let values = hists
 		elseif shortcontext =~ 'iframe\.$'
@@ -443,34 +254,22 @@ function! js#CompleteJS(findstart, base)
 			let values = links
 		elseif shortcontext =~ 'location\.$'
 			let values = locas
-		elseif shortcontext =~ 'meta\.$'
-			let values = metas
 		elseif shortcontext =~ 'navigator\.$'
 			let values = navis
-		elseif shortcontext =~ 'object\.$'
+    elseif shortcontext =~ '\]\.$'
+      let values = arrays
+		elseif shortcontext =~ '\(}\|object\)\.$'
 			let values = objes
 		elseif shortcontext =~ 'screen\.$'
 			let values = scres
 		elseif shortcontext =~ 'style\.$'
 			let values = styls
-		elseif shortcontext =~ 'table\.$'
-			let values = tabls
-		elseif shortcontext =~ 'TableData\.$'
-			let values = tdats
-		elseif shortcontext =~ 'TableRow\.$'
-			let values = trows
 		elseif shortcontext =~ 'window\.$'
 			let values = winds
-		elseif shortcontext =~ 'parseError\.$'
-			let values = xdomerror
-		elseif shortcontext =~ 'attributes\[\d\+\]\.$'
-			let values = xdomattrprop
 		else
-			let values = user_props + arrays + dates + funcs + maths + numbs + objes + reges + stris
-			let values += doms + anths + areas + bases + bodys + docus + forms + frams + fsets + hists
-			let values += ifras + imags + links + locas + metas + navis + objes + scres
-			let values += tabls + trows + tares + winds
-			let values += xdomnodes + xdomnliss + xdomelems
+			let values = user_props + bodys + arrays + dates + funcs + numbs + reges + stris
+			let values += doms + areas + bases + docus
+			let values += ifras + imags + links + locas + navis + objes + scres + winds
 		endif
 		endif
 
@@ -541,10 +340,10 @@ function! js#CompleteJS(findstart, base)
 	let arguments = sort(arguments)
 
 	" Built-in functions
-	let builtin = ['alert(', 'confirm(']
+	let builtin = ['addEventListener(', 'alert(', 'atob(', 'blur(', 'btoa(', 'cancelAnimationFrame(', 'captureEvents(', 'clearInterval(', 'clearTimeout(', 'close(', 'confirm(', 'dispatchEvent(', 'find(', 'focus(', 'getComputedStyle(', 'getMatchedCSSRules(', 'getSelection(', 'matchMedia(', 'moveBy(', 'moveTo(', 'open(', 'openDatabase(', 'postMessage(', 'print(', 'prompt(', 'releaseEvents(', 'removeEventListener(', 'requestAnimationFrame(', 'resizeBy(', 'resizeTo(', 'scroll(', 'scrollBy(', 'scrollTo(', 'setInterval(', 'setTimeout(', 'showModalDialog(', 'stop(']
 
 	" Top-level HTML DOM objects
-	let htmldom = ['document', 'anchor', 'area', 'base', 'body', 'document', 'event', 'form', 'frame', 'frameset', 'history', 'iframe', 'image', 'input', 'link', 'location', 'meta', 'navigator', 'object', 'option', 'screen', 'select', 'table', 'tableData', 'tableHeader', 'tableRow', 'textarea', 'window']
+	let htmldom = ['document', 'anchor', 'area', 'base', 'body', 'document', 'event', 'form', 'frame', 'frameset', 'history', 'iframe', 'image', 'input', 'link', 'location', 'meta', 'navigator', 'option', 'screen', 'select', 'table', 'tableData', 'tableHeader', 'tableRow', 'textarea', 'window']
 	call map(htmldom, 'v:val."."')
 
 	" Top-level properties
@@ -553,9 +352,9 @@ function! js#CompleteJS(findstart, base)
 				\ 'parseInt', 'String', 'undefined', 'escape', 'unescape']
 
 	" Keywords
-	let keywords = ["Array", "Boolean", "Date", "Function", "Math", "Number", "Object", "RegExp", "String", "XMLHttpRequest", "ActiveXObject", "abstract", "boolean", "break", "byte", "case", "catch", "char", "class", "continue", "debugger", "default", "delete", "do", "double ", "else", "enum", "export", "extends", "false", "final", "finally", "float", "for", "function", "goto", "if", "implements", "import", "in ", "instanceof", "int", "interface", "long", "native", "new", "null", "package", "private", "protected", "public", "return", "short", "static", "super ", "switch", "synchronized", "this", "throw", "throws", "transient", "true", "try", "typeof", "var", "void", "volatile", "while", "with", "console"]
+  let keywords = ['AnalyserNode', 'ApplicationCache', 'ApplicationCacheErrorEvent', 'Array', 'ArrayBuffer', 'Attr', 'Audio', 'AudioBuffer', 'AudioBufferSourceNode', 'AudioContext', 'AudioDestinationNode', 'AudioListener', 'AudioNode', 'AudioParam', 'AudioProcessingEvent', 'AutocompleteErrorEvent', 'BarProp', 'BeforeUnloadEvent', 'BiquadFilterNode', 'Blob', 'Boolean', 'CDATASection', 'CSSCharsetRule', 'CSSFontFaceRule', 'CSSImportRule', 'CSSKeyframeRule', 'CSSKeyframesRule', 'CSSMediaRule', 'CSSPageRule', 'CSSPrimitiveValue', 'CSSRule', 'CSSRuleList', 'CSSStyleDeclaration', 'CSSStyleRule', 'CSSStyleSheet', 'CSSUnknownRule', 'CSSValue', 'CSSValueList', 'CSSViewportRule', 'CanvasGradient', 'CanvasPattern', 'CanvasRenderingContext2D', 'ChannelMergerNode', 'ChannelSplitterNode', 'CharacterData', 'ClientRect', 'ClientRectList', 'CloseEvent', 'Comment', 'CompositionEvent', 'ConvolverNode', 'Counter', 'CustomEvent', 'DOMError', 'DOMException', 'DOMImplementation', 'DOMParser', 'DOMSettableTokenList', 'DOMStringList', 'DOMStringMap', 'DOMTokenList', 'DataTransfer', 'DataTransferItemList', 'DataView', 'Date', 'DelayNode', 'DeviceMotionEvent', 'DeviceOrientationEvent', 'Document', 'DocumentFragment', 'DocumentType', 'DynamicsCompressorNode', 'Element', 'Error', 'ErrorEvent', 'EvalError', 'Event', 'EventSource', 'EventTarget', 'File', 'FileError', 'FileList', 'FileReader', 'Float32Array', 'Float64Array', 'FocusEvent', 'FontFace', 'FormData', 'Function', 'GainNode', 'Gamepad', 'GamepadEvent', 'HTMLAllCollection', 'HTMLAnchorElement', 'HTMLAppletElement', 'HTMLAreaElement', 'HTMLAudioElement', 'HTMLBRElement', 'HTMLBaseElement', 'HTMLBodyElement', 'HTMLButtonElement', 'HTMLCanvasElement', 'HTMLCollection', 'HTMLContentElement', 'HTMLDListElement', 'HTMLDataListElement', 'HTMLDialogElement', 'HTMLDirectoryElement', 'HTMLDivElement', 'HTMLDocument', 'HTMLElement', 'HTMLEmbedElement', 'HTMLFieldSetElement', 'HTMLFontElement', 'HTMLFormControlsCollection', 'HTMLFormElement', 'HTMLFrameElement', 'HTMLFrameSetElement', 'HTMLHRElement', 'HTMLHeadElement', 'HTMLHeadingElement', 'HTMLHtmlElement', 'HTMLIFrameElement', 'HTMLImageElement', 'HTMLInputElement', 'HTMLKeygenElement', 'HTMLLIElement', 'HTMLLabelElement', 'HTMLLegendElement', 'HTMLLinkElement', 'HTMLMapElement', 'HTMLMarqueeElement', 'HTMLMediaElement', 'HTMLMenuElement', 'HTMLMetaElement', 'HTMLMeterElement', 'HTMLModElement', 'HTMLOListElement', 'HTMLObjectElement', 'HTMLOptGroupElement', 'HTMLOptionElement', 'HTMLOptionsCollection', 'HTMLOutputElement', 'HTMLParagraphElement', 'HTMLParamElement', 'HTMLPreElement', 'HTMLProgressElement', 'HTMLQuoteElement', 'HTMLScriptElement', 'HTMLSelectElement', 'HTMLShadowElement', 'HTMLSourceElement', 'HTMLSpanElement', 'HTMLStyleElement', 'HTMLTableCaptionElement', 'HTMLTableCellElement', 'HTMLTableColElement', 'HTMLTableElement', 'HTMLTableRowElement', 'HTMLTableSectionElement', 'HTMLTemplateElement', 'HTMLTextAreaElement', 'HTMLTitleElement', 'HTMLTrackElement', 'HTMLUListElement', 'HTMLUnknownElement', 'HTMLVideoElement', 'HashChangeEvent', 'History', 'IDBCursor', 'IDBCursorWithValue', 'IDBDatabase', 'IDBFactory', 'IDBIndex', 'IDBKeyRange', 'IDBObjectStore', 'IDBOpenDBRequest', 'IDBRequest', 'IDBTransaction', 'IDBVersionChangeEvent', 'Image', 'ImageBitmap', 'ImageData', 'InputMethodContext', 'Int16Array', 'Int32Array', 'Int8Array', 'KeyboardEvent', 'Location', 'MediaElementAudioSourceNode', 'MediaError', 'MediaKeyError', 'MediaKeyEvent', 'MediaList', 'MediaSource', 'MediaStreamAudioDestinationNode', 'MediaStreamAudioSourceNode', 'MediaStreamEvent', 'MediaStreamTrack', 'MessageChannel', 'MessageEvent', 'MessagePort', 'MimeType', 'MimeTypeArray', 'MouseEvent', 'MutationEvent', 'MutationObserver', 'MutationRecord', 'NamedNodeMap', 'Navigator', 'Node', 'NodeFilter', 'NodeIterator', 'NodeList', 'Notation', 'Notification', 'Number', 'Object', 'OfflineAudioCompletionEvent', 'OfflineAudioContext', 'Option', 'OscillatorNode', 'OverflowEvent', 'PageTransitionEvent', 'Path2D', 'Performance', 'PerformanceEntry', 'PerformanceMark', 'PerformanceMeasure', 'PerformanceNavigation', 'PerformanceResourceTiming', 'PerformanceTiming', 'PeriodicWave', 'Plugin', 'PluginArray', 'PopStateEvent', 'ProcessingInstruction', 'ProgressEvent', 'Promise', 'RGBColor', 'RTCIceCandidate', 'RTCSessionDescription', 'Range', 'RangeError', 'Rect', 'ReferenceError', 'RegExp', 'SVGAElement', 'SVGAltGlyphDefElement', 'SVGAltGlyphElement', 'SVGAltGlyphItemElement', 'SVGAngle', 'SVGAnimateElement', 'SVGAnimateMotionElement', 'SVGAnimateTransformElement', 'SVGAnimatedAngle', 'SVGAnimatedBoolean', 'SVGAnimatedEnumeration', 'SVGAnimatedInteger', 'SVGAnimatedLength', 'SVGAnimatedLengthList', 'SVGAnimatedNumber', 'SVGAnimatedNumberList', 'SVGAnimatedPreserveAspectRatio', 'SVGAnimatedRect', 'SVGAnimatedString', 'SVGAnimatedTransformList', 'SVGAnimationElement', 'SVGCircleElement', 'SVGClipPathElement', 'SVGComponentTransferFunctionElement', 'SVGCursorElement', 'SVGDefsElement', 'SVGDescElement', 'SVGDiscardElement', 'SVGElement', 'SVGEllipseElement', 'SVGFEBlendElement', 'SVGFEColorMatrixElement', 'SVGFEComponentTransferElement', 'SVGFECompositeElement', 'SVGFEConvolveMatrixElement', 'SVGFEDiffuseLightingElement', 'SVGFEDisplacementMapElement', 'SVGFEDistantLightElement', 'SVGFEDropShadowElement', 'SVGFEFloodElement', 'SVGFEFuncAElement', 'SVGFEFuncBElement', 'SVGFEFuncGElement', 'SVGFEFuncRElement', 'SVGFEGaussianBlurElement', 'SVGFEImageElement', 'SVGFEMergeElement', 'SVGFEMergeNodeElement', 'SVGFEMorphologyElement', 'SVGFEOffsetElement', 'SVGFEPointLightElement', 'SVGFESpecularLightingElement', 'SVGFESpotLightElement', 'SVGFETileElement', 'SVGFETurbulenceElement', 'SVGFilterElement', 'SVGFontElement', 'SVGFontFaceElement', 'SVGFontFaceFormatElement', 'SVGFontFaceNameElement', 'SVGFontFaceSrcElement', 'SVGFontFaceUriElement', 'SVGForeignObjectElement', 'SVGGElement', 'SVGGeometryElement', 'SVGGlyphElement', 'SVGGlyphRefElement', 'SVGGradientElement', 'SVGGraphicsElement', 'SVGHKernElement', 'SVGImageElement', 'SVGLength', 'SVGLengthList', 'SVGLineElement', 'SVGLinearGradientElement', 'SVGMPathElement', 'SVGMarkerElement', 'SVGMaskElement', 'SVGMatrix', 'SVGMetadataElement', 'SVGMissingGlyphElement', 'SVGNumber', 'SVGNumberList', 'SVGPathElement', 'SVGPathSeg', 'SVGPathSegArcAbs', 'SVGPathSegArcRel', 'SVGPathSegClosePath', 'SVGPathSegCurvetoCubicAbs', 'SVGPathSegCurvetoCubicRel', 'SVGPathSegCurvetoCubicSmoothAbs', 'SVGPathSegCurvetoCubicSmoothRel', 'SVGPathSegCurvetoQuadraticAbs', 'SVGPathSegCurvetoQuadraticRel', 'SVGPathSegCurvetoQuadraticSmoothAbs', 'SVGPathSegCurvetoQuadraticSmoothRel', 'SVGPathSegLinetoAbs', 'SVGPathSegLinetoHorizontalAbs', 'SVGPathSegLinetoHorizontalRel', 'SVGPathSegLinetoRel', 'SVGPathSegLinetoVerticalAbs', 'SVGPathSegLinetoVerticalRel', 'SVGPathSegList', 'SVGPathSegMovetoAbs', 'SVGPathSegMovetoRel', 'SVGPatternElement', 'SVGPoint', 'SVGPointList', 'SVGPolygonElement', 'SVGPolylineElement', 'SVGPreserveAspectRatio', 'SVGRadialGradientElement', 'SVGRect', 'SVGRectElement', 'SVGRenderingIntent', 'SVGSVGElement', 'SVGScriptElement', 'SVGSetElement', 'SVGStopElement', 'SVGStringList', 'SVGStyleElement', 'SVGSwitchElement', 'SVGSymbolElement', 'SVGTSpanElement', 'SVGTextContentElement', 'SVGTextElement', 'SVGTextPathElement', 'SVGTextPositioningElement', 'SVGTitleElement', 'SVGTransform', 'SVGTransformList', 'SVGUnitTypes', 'SVGUseElement', 'SVGVKernElement', 'SVGViewElement', 'SVGViewSpec', 'SVGZoomEvent', 'Screen', 'ScriptProcessorNode', 'Selection', 'ShadowRoot', 'SharedWorker', 'SpeechSynthesisEvent', 'SpeechSynthesisUtterance', 'Storage', 'StorageEvent', 'String', 'StyleSheet', 'StyleSheetList', 'SyntaxError', 'Text', 'TextEvent', 'TextMetrics', 'TextTrack', 'TextTrackCue', 'TextTrackCueList', 'TextTrackList', 'TimeRanges', 'Touch', 'TouchEvent', 'TouchList', 'TrackEvent', 'TransitionEvent', 'TreeWalker', 'TypeError', 'UIEvent', 'URIError', 'URL', 'Uint16Array', 'Uint32Array', 'Uint8Array', 'Uint8ClampedArray', 'VTTCue', 'ValidityState', 'WaveShaperNode', 'WeakMap', 'WeakSet', 'WebGLActiveInfo', 'WebGLBuffer', 'WebGLContextEvent', 'WebGLFramebuffer', 'WebGLProgram', 'WebGLRenderbuffer', 'WebGLRenderingContext', 'WebGLShader', 'WebGLShaderPrecisionFormat', 'WebGLTexture', 'WebGLUniformLocation', 'WebKitAnimationEvent', 'WebKitCSSFilterRule', 'WebKitCSSFilterValue', 'WebKitCSSMatrix', 'WebKitCSSTransformValue', 'WebKitGamepad', 'WebKitMutationObserver', 'WebKitPoint', 'WebKitTransitionEvent', 'WebSocket', 'WheelEvent', 'Window', 'Worker', 'XMLDocument', 'XMLHttpRequest', 'XMLHttpRequestProgressEvent', 'XMLHttpRequestUpload', 'XMLSerializer', 'XPathEvaluator', 'XPathExpression', 'XPathResult', 'XSLTProcessor', 'abstract', 'boolean', 'break', 'byte', 'case', 'catch', 'char', 'class', 'continue', 'debugger', 'default', 'delete', 'do', 'double ', 'else', 'enum', 'export', 'extends', 'false', 'final', 'finally', 'float', 'for', 'function', 'goto', 'if', 'implements', 'import', 'in ', 'instanceof', 'int', 'interface', 'long', 'native', 'new', 'null', 'package', 'private', 'protected', 'public', 'return', 'short', 'static', 'super ', 'switch', 'synchronized', 'this', 'throw', 'throws', 'transient', 'true', 'try', 'typeof', 'var', 'void', 'volatile', 'while', 'with', 'console']
 
-	let values = variables + functions + htmldom + arguments + builtin + properties + keywords
+	let values = variables + builtin + functions + htmldom + arguments + properties + keywords
 
 	for m in values
 		if m =~? '^'.a:base
