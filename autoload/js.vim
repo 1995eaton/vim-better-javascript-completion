@@ -1,7 +1,8 @@
-" Vim completion script
-" Language:	Java Script
-" Maintainer:	Mikolaj Machowski ( mikmach AT wp DOT pl )
-" Last Change:	2006 Apr 30
+" (A more up-to-date) Vim completion script
+" Language:	JavaScript
+" Maintainer:	Jake Eaton (1995eaton@gmail.com)
+" Last Change:	2014 Jun 23
+" Original Maintainer: Mikolaj Machowski ( mikmach AT wp DOT pl )
 
 function! js#CompleteJS(findstart, base)
   if a:findstart
@@ -97,6 +98,11 @@ function! js#CompleteJS(findstart, base)
 		call map(user_props2, 'matchstr(v:val, "prototype\\.\\zs\\k\\+\\ze")')
 		let user_props = user_props1 + user_props2
 
+    let ctxprop = ['canvas', 'fillStyle', 'font', 'globalAlpha', 'globalCompositeOperation', 'imageSmoothingEnabled', 'lineCap', 'lineDashOffset', 'lineJoin', 'lineWidth', 'miterLimit', 'shadowBlur', 'shadowColor', 'shadowOffsetX', 'shadowOffsetY', 'strokeStyle', 'textAlign', 'textBaseline', 'webkitImageSmoothingEnabled']
+    let ctxmeth = ['arc', 'arcTo', 'beginPath', 'bezierCurveTo', 'clearRect', 'clearShadow', 'clip', 'closePath', 'createImageData', 'createLinearGradient', 'createPattern', 'createRadialGradient', 'drawFocusIfNeeded', 'drawImage', 'drawImageFromRect', 'ellipse', 'fill', 'fillRect', 'fillText', 'getContextAttributes', 'getImageData', 'getLineDash', 'isPointInPath', 'isPointInStroke', 'lineTo', 'measureText', 'moveTo', 'putImageData', 'quadraticCurveTo', 'rect', 'resetTransform', 'restore', 'rotate', 'save', 'scale', 'setAlpha', 'setCompositeOperation', 'setFillColor', 'setLineCap', 'setLineDash', 'setLineJoin', 'setLineWidth', 'setMiterLimit', 'setShadow', 'setStrokeColor', 'setTransform', 'stroke', 'strokeRect', 'strokeText', 'transform', 'translate']
+    call map(ctxmeth, 'v:val."("')
+    let ctxs = ctxprop + ctxmeth
+
 		let areaprop = ['accessKey', 'alt', 'coords', 'hash', 'host', 'hostname', 'href', 'id',
 					\ 'noHref', 'pathname', 'port', 'protocol', 'search', 'shape', 'tabIndex', 'target']
 		let areameth = ['onclick', 'ondblClick', 'onmouseOut', 'onmouseOver']
@@ -155,6 +161,17 @@ function! js#CompleteJS(findstart, base)
 		let stylprop = ['parentRule', 'length', 'cssText', 'alignContent', 'alignItems', 'alignSelf', 'alignmentBaseline', 'backfaceVisibility', 'background', 'backgroundAttachment', 'backgroundBlendMode', 'backgroundClip', 'backgroundColor', 'backgroundImage', 'backgroundOrigin', 'backgroundPosition', 'backgroundPositionX', 'backgroundPositionY', 'backgroundRepeat', 'backgroundRepeatX', 'backgroundRepeatY', 'backgroundSize', 'baselineShift', 'border', 'borderBottom', 'borderBottomColor', 'borderBottomLeftRadius', 'borderBottomRightRadius', 'borderBottomStyle', 'borderBottomWidth', 'borderCollapse', 'borderColor', 'borderImage', 'borderImageOutset', 'borderImageRepeat', 'borderImageSlice', 'borderImageSource', 'borderImageWidth', 'borderLeft', 'borderLeftColor', 'borderLeftStyle', 'borderLeftWidth', 'borderRadius', 'borderRight', 'borderRightColor', 'borderRightStyle', 'borderRightWidth', 'borderSpacing', 'borderStyle', 'borderTop', 'borderTopColor', 'borderTopLeftRadius', 'borderTopRightRadius', 'borderTopStyle', 'borderTopWidth', 'borderWidth', 'bottom', 'boxShadow', 'boxSizing', 'bufferedRendering', 'captionSide', 'clear', 'clip', 'clipPath', 'clipRule', 'color', 'colorInterpolation', 'colorInterpolationFilters', 'colorRendering', 'content', 'counterIncrement', 'counterReset', 'cursor', 'direction', 'display', 'dominantBaseline', 'emptyCells', 'enableBackground', 'fill', 'fillOpacity', 'fillRule', 'filter', 'flex', 'flexBasis', 'flexDirection', 'flexFlow', 'flexGrow', 'flexShrink', 'flexWrap', 'float', 'floodColor', 'floodOpacity', 'font', 'fontFamily', 'fontKerning', 'fontSize', 'fontStretch', 'fontStyle', 'fontVariant', 'fontVariantLigatures', 'fontWeight', 'glyphOrientationHorizontal', 'glyphOrientationVertical', 'height', 'imageRendering', 'justifyContent', 'left', 'letterSpacing', 'lightingColor', 'lineHeight', 'listStyle', 'listStyleImage', 'listStylePosition', 'listStyleType', 'margin', 'marginBottom', 'marginLeft', 'marginRight', 'marginTop', 'marker', 'markerEnd', 'markerMid', 'markerStart', 'mask', 'maskType', 'maxHeight', 'maxWidth', 'maxZoom', 'minHeight', 'minWidth', 'minZoom', 'objectFit', 'objectPosition', 'opacity', 'order', 'orientation', 'orphans', 'outline', 'outlineColor', 'outlineOffset', 'outlineStyle', 'outlineWidth', 'overflow', 'overflowWrap', 'overflowX', 'overflowY', 'padding', 'paddingBottom', 'paddingLeft', 'paddingRight', 'paddingTop', 'page', 'pageBreakAfter', 'pageBreakBefore', 'pageBreakInside', 'paintOrder', 'perspective', 'perspectiveOrigin', 'pointerEvents', 'position', 'quotes', 'resize', 'right', 'shapeImageThreshold', 'shapeMargin', 'shapeOutside', 'shapeRendering', 'size', 'speak', 'src', 'stopColor', 'stopOpacity', 'stroke', 'strokeDasharray', 'strokeDashoffset', 'strokeLinecap', 'strokeLinejoin', 'strokeMiterlimit', 'strokeOpacity', 'strokeWidth', 'tabSize', 'tableLayout', 'textAlign', 'textAnchor', 'textDecoration', 'textIndent', 'textLineThroughColor', 'textLineThroughMode', 'textLineThroughStyle', 'textLineThroughWidth', 'textOverflow', 'textOverlineColor', 'textOverlineMode', 'textOverlineStyle', 'textOverlineWidth', 'textRendering', 'textShadow', 'textTransform', 'textUnderlineColor', 'textUnderlineMode', 'textUnderlineStyle', 'textUnderlineWidth', 'top', 'touchAction', 'transform', 'transformOrigin', 'transformStyle', 'transition', 'transitionDelay', 'transitionDuration', 'transitionProperty', 'transitionTimingFunction', 'unicodeBidi', 'unicodeRange', 'userZoom', 'vectorEffect', 'verticalAlign', 'visibility', 'webkitAnimation', 'webkitAnimationDelay', 'webkitAnimationDirection', 'webkitAnimationDuration', 'webkitAnimationFillMode', 'webkitAnimationIterationCount', 'webkitAnimationName', 'webkitAnimationPlayState', 'webkitAnimationTimingFunction', 'webkitAppRegion', 'webkitAppearance', 'webkitAspectRatio', 'webkitBackfaceVisibility', 'webkitBackgroundClip', 'webkitBackgroundComposite', 'webkitBackgroundOrigin', 'webkitBackgroundSize', 'webkitBorderAfter', 'webkitBorderAfterColor', 'webkitBorderAfterStyle', 'webkitBorderAfterWidth', 'webkitBorderBefore', 'webkitBorderBeforeColor', 'webkitBorderBeforeStyle', 'webkitBorderBeforeWidth', 'webkitBorderEnd', 'webkitBorderEndColor', 'webkitBorderEndStyle', 'webkitBorderEndWidth', 'webkitBorderFit', 'webkitBorderHorizontalSpacing', 'webkitBorderImage', 'webkitBorderRadius', 'webkitBorderStart', 'webkitBorderStartColor', 'webkitBorderStartStyle', 'webkitBorderStartWidth', 'webkitBorderVerticalSpacing', 'webkitBoxAlign', 'webkitBoxDecorationBreak', 'webkitBoxDirection', 'webkitBoxFlex', 'webkitBoxFlexGroup', 'webkitBoxLines', 'webkitBoxOrdinalGroup', 'webkitBoxOrient', 'webkitBoxPack', 'webkitBoxReflect', 'webkitBoxShadow', 'webkitClipPath', 'webkitColumnBreakAfter', 'webkitColumnBreakBefore', 'webkitColumnBreakInside', 'webkitColumnCount', 'webkitColumnGap', 'webkitColumnRule', 'webkitColumnRuleColor', 'webkitColumnRuleStyle', 'webkitColumnRuleWidth', 'webkitColumnSpan', 'webkitColumnWidth', 'webkitColumns', 'webkitFilter', 'webkitFontFeatureSettings', 'webkitFontSizeDelta', 'webkitFontSmoothing', 'webkitHighlight', 'webkitHyphenateCharacter', 'webkitLineBoxContain', 'webkitLineBreak', 'webkitLineClamp', 'webkitLocale', 'webkitLogicalHeight', 'webkitLogicalWidth', 'webkitMarginAfter', 'webkitMarginAfterCollapse', 'webkitMarginBefore', 'webkitMarginBeforeCollapse', 'webkitMarginBottomCollapse', 'webkitMarginCollapse', 'webkitMarginEnd', 'webkitMarginStart', 'webkitMarginTopCollapse', 'webkitMask', 'webkitMaskBoxImage', 'webkitMaskBoxImageOutset', 'webkitMaskBoxImageRepeat', 'webkitMaskBoxImageSlice', 'webkitMaskBoxImageSource', 'webkitMaskBoxImageWidth', 'webkitMaskClip', 'webkitMaskComposite', 'webkitMaskImage', 'webkitMaskOrigin', 'webkitMaskPosition', 'webkitMaskPositionX', 'webkitMaskPositionY', 'webkitMaskRepeat', 'webkitMaskRepeatX', 'webkitMaskRepeatY', 'webkitMaskSize', 'webkitMaxLogicalHeight', 'webkitMaxLogicalWidth', 'webkitMinLogicalHeight', 'webkitMinLogicalWidth', 'webkitPaddingAfter', 'webkitPaddingBefore', 'webkitPaddingEnd', 'webkitPaddingStart', 'webkitPerspective', 'webkitPerspectiveOrigin', 'webkitPerspectiveOriginX', 'webkitPerspectiveOriginY', 'webkitPrintColorAdjust', 'webkitRtlOrdering', 'webkitRubyPosition', 'webkitTapHighlightColor', 'webkitTextCombine', 'webkitTextDecorationsInEffect', 'webkitTextEmphasis', 'webkitTextEmphasisColor', 'webkitTextEmphasisPosition', 'webkitTextEmphasisStyle', 'webkitTextFillColor', 'webkitTextOrientation', 'webkitTextSecurity', 'webkitTextStroke', 'webkitTextStrokeColor', 'webkitTextStrokeWidth', 'webkitTransform', 'webkitTransformOrigin', 'webkitTransformOriginX', 'webkitTransformOriginY', 'webkitTransformOriginZ', 'webkitTransformStyle', 'webkitTransition', 'webkitTransitionDelay', 'webkitTransitionDuration', 'webkitTransitionProperty', 'webkitTransitionTimingFunction', 'webkitUserDrag', 'webkitUserModify', 'webkitUserSelect', 'webkitWritingMode', 'whiteSpace', 'widows', 'width', 'willChange', 'wordBreak', 'wordSpacing', 'wordWrap', 'writingMode', 'zIndex', 'zoom']
 		let styls = stylprop
 
+    let niterprop = ['expandEntityReferences', 'filter', 'pointerBeforeReferenceNode', 'referenceNode', 'root', 'whatToShow']
+    let nitermeth = ['detach', 'nextNode', 'previousNode']
+    call map(nitermeth, 'v:val."("')
+    let niters = niterprop + nitermeth
+    let nfilter = ['FILTER_ACCEPT', 'FILTER_REJECT', 'FILTER_SKIP', 'SHOW_ALL', 'SHOW_ATTRIBUTE', 'SHOW_CDATA_SECTION', 'SHOW_COMMENT', 'SHOW_DOCUMENT', 'SHOW_DOCUMENT_FRAGMENT', 'SHOW_DOCUMENT_TYPE', 'SHOW_ELEMENT', 'SHOW_ENTITY', 'SHOW_ENTITY_REFERENCE', 'SHOW_NOTATION', 'SHOW_PROCESSING_INSTRUCTION', 'SHOW_TEXT', 'arguments', 'caller', 'length', 'name', 'prototype']
+
+    let twalkerprop = ['currentNode', 'expandEntityReferences', 'filter', 'root', 'whatToShow']
+    let twalkermeth = ['firstChild', 'lastChild', 'nextNode', 'nextSibling', 'parentNode', 'previousNode', 'previousSibling']
+    call map(twalkermeth, 'v:val."("')
+    let twalkers = twalkerprop + twalkermeth
+
 		let windprop =  ['applicationCache', 'clientInformation', 'closed', 'console', 'crypto', 'decodeURI', 'decodeURIComponent', 'defaultStatus', 'defaultstatus', 'devicePixelRatio', 'document', 'encodeURI', 'encodeURIComponent', 'escape', 'eval', 'event', 'external', 'frameElement', 'frames', 'history', 'indexedDB', 'innerHeight', 'innerWidth', 'isFinite', 'isNaN', 'length', 'localStorage', 'location', 'locationbar', 'menubar', 'name', 'navigator', 'offscreenBuffering', 'opener', 'outerHeight', 'outerWidth', 'pageXOffset', 'pageYOffset', 'parent', 'parseFloat', 'parseInt', 'performance', 'personalbar', 'screen', 'screenLeft', 'screenTop', 'screenX', 'screenY', 'scrollX', 'scrollY', 'scrollbars', 'self', 'sessionStorage', 'speechSynthesis', 'status', 'statusbar', 'styleMedia', 'toolbar', 'top', 'undefined', 'unescape', 'window']
 		let windmeth = ['addEventListener', 'alert', 'atob', 'blur', 'btoa', 'cancelAnimationFrame', 'captureEvents', 'clearInterval', 'clearTimeout', 'close', 'confirm', 'dispatchEvent', 'find', 'focus', 'getComputedStyle', 'getMatchedCSSRules', 'getSelection', 'matchMedia', 'moveBy', 'moveTo', 'open', 'openDatabase', 'postMessage', 'print', 'prompt', 'releaseEvents', 'removeEventListener', 'requestAnimationFrame', 'resizeBy', 'resizeTo', 'scroll', 'scrollBy', 'scrollTo', 'setInterval', 'setTimeout', 'showModalDialog', 'stop']
 		call map(windmeth, 'v:val."("')
@@ -181,14 +198,22 @@ function! js#CompleteJS(findstart, base)
 						let object_type = 'XMLHttpRequest'
 				endif
       else
-				if search('var\s*'.object.'\s*=\s*\/', 'bn') > 0
+				if search(object.'\s*=\s*\/', 'bn') > 0
 					let object_type = 'RegExp'
-        elseif search('var\s*'.object.'\s*=\s*{', 'bn') > 0
+        elseif search(object.'\s*=\s*{', 'bn') > 0
           let object_type = 'Object'
-        elseif search('var\s*'.object.'\s*=\s*\[', 'bn') > 0
+        elseif search(object.'\s*=\s*\(true\|false\|!\)', 'bn') > 0
+          let object_type = 'Boolean'
+        elseif search(object.'\s*=\s*\[', 'bn') > 0
           let object_type = 'Array'
-        elseif search('var\s*'.object.'\s*=\s*["'."'".']', 'bn') > 0
+        elseif search(object.'\s*=\s*\(["'."'".']\|String(\)', 'bn') > 0
           let object_type = 'String'
+        elseif search(object.'\s*=\s*document\.createTreeWalker(', 'bn') > 0
+          let object_type = 'TreeWalker'
+        elseif search(object.'\s*=\s*[a-zA-Z_$]\+\.getContext(', 'bn') > 0
+          let object_type = 'CanvasRenderingContext2D'
+        elseif search(object.'\s*=\s*document\.createNodeIterator(', 'bn') > 0
+          let object_type = 'NodeIterator'
         endif
 			endif
 			" We didn't find var declaration in current file but we may have
@@ -223,7 +248,7 @@ function! js#CompleteJS(findstart, base)
     elseif object_type == 'Object'
       let values = objes
 		elseif object_type == 'Boolean'
-			let values = arrays
+			let values = ['arguments', 'caller', 'length', 'name', 'prototype', 'constructor', 'toString', 'valueOf']
 		elseif object_type == 'XMLHttpRequest'
 			let values = xmlhs
 		elseif object_type == 'String'
@@ -232,10 +257,15 @@ function! js#CompleteJS(findstart, base)
 			let values = reges
 		elseif object_type == 'Math'
 			let values = maths
+    elseif object_type == 'CanvasRenderingContext2D'
+      let values = ctxs
+    elseif object_type == 'NodeIterator'
+      let values = niters
+    elseif object_type == 'TreeWalker'
+      let values = twalkers
 		endif
 
 		if !exists('values')
-		" List of properties
 		if shortcontext =~ 'Math\.$'
 			let values = maths
 		elseif shortcontext =~ 'area\.$'
@@ -250,6 +280,10 @@ function! js#CompleteJS(findstart, base)
 			let values = hists
     elseif shortcontext =~ '\(local\|session\)Storage\.$'
       let values = storage
+    elseif shortcontext =~ 'NodeFilter\.$'
+      let values = nfilter
+    elseif shortcontext =~ '\/.*\(\\\/\)\@!\/\.$'
+      let values = reges
 		elseif shortcontext =~ 'iframe\.$'
 			let values = ifras
 		elseif shortcontext =~ 'images\(\[.\{-}\]\)\?\.$'
@@ -268,7 +302,7 @@ function! js#CompleteJS(findstart, base)
 			let values = scres
 		elseif shortcontext =~ 'style\.$'
 			let values = styls
-		elseif shortcontext =~ 'window\.$'
+		elseif shortcontext =~ '\(top\|self\|window\)\.$'
 			let values = winds
 		else
 			let values = user_props + bodys + arrays + dates + funcs + numbs + reges + stris
@@ -289,7 +323,6 @@ function! js#CompleteJS(findstart, base)
 		return res + res2
 
 	endif
-	" }}}
 
 	" Get variables data.
 	let variables = filter(copy(file), 'v:val =~ "var\\s"')
@@ -347,7 +380,7 @@ function! js#CompleteJS(findstart, base)
 	let builtin = ['addEventListener(', 'alert(', 'atob(', 'blur(', 'btoa(', 'cancelAnimationFrame(', 'captureEvents(', 'clearInterval(', 'clearTimeout(', 'close(', 'confirm(', 'dispatchEvent(', 'find(', 'focus(', 'getComputedStyle(', 'getMatchedCSSRules(', 'getSelection(', 'matchMedia(', 'moveBy(', 'moveTo(', 'open(', 'openDatabase(', 'postMessage(', 'print(', 'prompt(', 'releaseEvents(', 'removeEventListener(', 'requestAnimationFrame(', 'resizeBy(', 'resizeTo(', 'scroll(', 'scrollBy(', 'scrollTo(', 'setInterval(', 'setTimeout(', 'showModalDialog(', 'stop(', 'localStorage', 'sessionStorage']
 
 	" Top-level HTML DOM objects
-	let htmldom = ['document', 'anchor', 'area', 'base', 'body', 'document', 'event', 'form', 'frame', 'frameset', 'history', 'iframe', 'image', 'input', 'link', 'location', 'meta', 'navigator', 'option', 'screen', 'select', 'table', 'tableData', 'tableHeader', 'tableRow', 'textarea', 'window']
+	let htmldom = ['CSS', 'Infinity', 'Intl', 'JSON', 'Math', 'NaN', 'applicationCache', 'chrome', 'clientInformation', 'closed', 'console', 'crypto', 'defaultStatus', 'defaultstatus', 'devicePixelRatio', 'document', 'event', 'external', 'frameElement', 'frames', 'history', 'indexedDB', 'innerHeight', 'innerWidth', 'length', 'localStorage', 'location', 'locationbar', 'menubar', 'name', 'navigator', 'offscreenBuffering', 'opener', 'outerHeight', 'outerWidth', 'pageXOffset', 'pageYOffset', 'parent', 'performance', 'personalbar', 'screen', 'screenLeft', 'screenTop', 'screenX', 'screenY', 'scrollX', 'scrollY', 'scrollbars', 'self', 'sessionStorage', 'speechSynthesis', 'status', 'statusbar', 'styleMedia', 'toolbar', 'top', 'undefined', 'webkitIndexedDB', 'webkitStorageInfo', 'window']
 
 	" Top-level properties
 	let properties = ['decodeURI', 'decodeURIComponent', 'encodeURI', 'encodeURIComponent',
