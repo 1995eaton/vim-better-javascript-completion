@@ -10,3 +10,8 @@ Features
  * HTML5 canvas -> getContext completion
  * NodeIterator, Treewalker, localStorage/sessionStorage methods
  * All of the existing methods were updated including the `.style` completions (webkit supported), and `console.` object
+
+Example
+=======
+
+![example image](https://raw.githubusercontent.com/1995eaton/vim-better-javascript-syntax/master/example.png)
