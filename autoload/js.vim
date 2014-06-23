@@ -103,6 +103,8 @@ function! js#CompleteJS(findstart, base)
 		call map(areameth, 'v:val."("')
 		let areas = areaprop + areameth
 
+    let storage = ['clear(', 'constructor(', 'getItem(', 'key(', 'removeItem(', 'setItem(', 'length']
+
 		let baseprop = ['href', 'id', 'className', 'target']
 		let bases = baseprop
 
@@ -246,6 +248,8 @@ function! js#CompleteJS(findstart, base)
 			let values = docus
 		elseif shortcontext =~ 'history\.$'
 			let values = hists
+    elseif shortcontext =~ '\(local\|session\)Storage\.$'
+      let values = storage
 		elseif shortcontext =~ 'iframe\.$'
 			let values = ifras
 		elseif shortcontext =~ 'images\(\[.\{-}\]\)\?\.$'
@@ -340,11 +344,10 @@ function! js#CompleteJS(findstart, base)
 	let arguments = sort(arguments)
 
 	" Built-in functions
-	let builtin = ['addEventListener(', 'alert(', 'atob(', 'blur(', 'btoa(', 'cancelAnimationFrame(', 'captureEvents(', 'clearInterval(', 'clearTimeout(', 'close(', 'confirm(', 'dispatchEvent(', 'find(', 'focus(', 'getComputedStyle(', 'getMatchedCSSRules(', 'getSelection(', 'matchMedia(', 'moveBy(', 'moveTo(', 'open(', 'openDatabase(', 'postMessage(', 'print(', 'prompt(', 'releaseEvents(', 'removeEventListener(', 'requestAnimationFrame(', 'resizeBy(', 'resizeTo(', 'scroll(', 'scrollBy(', 'scrollTo(', 'setInterval(', 'setTimeout(', 'showModalDialog(', 'stop(']
+	let builtin = ['addEventListener(', 'alert(', 'atob(', 'blur(', 'btoa(', 'cancelAnimationFrame(', 'captureEvents(', 'clearInterval(', 'clearTimeout(', 'close(', 'confirm(', 'dispatchEvent(', 'find(', 'focus(', 'getComputedStyle(', 'getMatchedCSSRules(', 'getSelection(', 'matchMedia(', 'moveBy(', 'moveTo(', 'open(', 'openDatabase(', 'postMessage(', 'print(', 'prompt(', 'releaseEvents(', 'removeEventListener(', 'requestAnimationFrame(', 'resizeBy(', 'resizeTo(', 'scroll(', 'scrollBy(', 'scrollTo(', 'setInterval(', 'setTimeout(', 'showModalDialog(', 'stop(', 'localStorage', 'sessionStorage']
 
 	" Top-level HTML DOM objects
 	let htmldom = ['document', 'anchor', 'area', 'base', 'body', 'document', 'event', 'form', 'frame', 'frameset', 'history', 'iframe', 'image', 'input', 'link', 'location', 'meta', 'navigator', 'option', 'screen', 'select', 'table', 'tableData', 'tableHeader', 'tableRow', 'textarea', 'window']
-	call map(htmldom, 'v:val."."')
 
 	" Top-level properties
 	let properties = ['decodeURI', 'decodeURIComponent', 'encodeURI', 'encodeURIComponent',
