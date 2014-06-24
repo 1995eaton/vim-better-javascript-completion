@@ -172,6 +172,8 @@ function! js#CompleteJS(findstart, base)
     call map(twalkermeth, 'v:val."("')
     let twalkers = twalkerprop + twalkermeth
 
+    let console = ['log', 'clear', 'time', 'trace', 'assert', 'count', 'debug', 'dir', 'dirxml', 'error', 'group', 'groupCollapsed', 'groupEnd', 'info', 'markTimeline', 'profile', 'profileEnd', 'table', 'timeEnd', 'timeStamp', 'timeline', 'timelineEnd', 'warn']
+
 		let windprop =  ['applicationCache', 'clientInformation', 'closed', 'console', 'crypto', 'decodeURI', 'decodeURIComponent', 'defaultStatus', 'defaultstatus', 'devicePixelRatio', 'document', 'encodeURI', 'encodeURIComponent', 'escape', 'eval', 'event', 'external', 'frameElement', 'frames', 'history', 'indexedDB', 'innerHeight', 'innerWidth', 'isFinite', 'isNaN', 'length', 'localStorage', 'location', 'locationbar', 'menubar', 'name', 'navigator', 'offscreenBuffering', 'opener', 'outerHeight', 'outerWidth', 'pageXOffset', 'pageYOffset', 'parent', 'parseFloat', 'parseInt', 'performance', 'personalbar', 'screen', 'screenLeft', 'screenTop', 'screenX', 'screenY', 'scrollX', 'scrollY', 'scrollbars', 'self', 'sessionStorage', 'speechSynthesis', 'status', 'statusbar', 'styleMedia', 'toolbar', 'top', 'undefined', 'unescape', 'window']
 		let windmeth = ['addEventListener', 'alert', 'atob', 'blur', 'btoa', 'cancelAnimationFrame', 'captureEvents', 'clearInterval', 'clearTimeout', 'close', 'confirm', 'dispatchEvent', 'find', 'focus', 'getComputedStyle', 'getMatchedCSSRules', 'getSelection', 'matchMedia', 'moveBy', 'moveTo', 'open', 'openDatabase', 'postMessage', 'print', 'prompt', 'releaseEvents', 'removeEventListener', 'requestAnimationFrame', 'resizeBy', 'resizeTo', 'scroll', 'scrollBy', 'scrollTo', 'setInterval', 'setTimeout', 'showModalDialog', 'stop']
 		call map(windmeth, 'v:val."("')
@@ -294,6 +296,8 @@ function! js#CompleteJS(findstart, base)
 			let values = locas
 		elseif shortcontext =~ 'navigator\.$'
 			let values = navis
+    elseif shortcontext =~ 'console\.$'
+      let values = console
     elseif shortcontext =~ '\]\.$'
       let values = arrays
 		elseif shortcontext =~ '\(}\|object\)\.$'
